@@ -9,7 +9,7 @@
         <h1>Logging out...</h1>
         <%
             session.invalidate();
-            response.sendRedirect("/IOTBay/index.jsp");
+            response.sendRedirect("/IotBay/index.jsp");
         %>
     </body>
 </html>

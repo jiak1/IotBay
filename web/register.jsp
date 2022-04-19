@@ -9,7 +9,7 @@
         <jsp:include page="fragments/nav.jsp"></jsp:include>
         <div class="center-form text-center mt-5">
             <h1 class="mb-3">Register</h1>
-            <form method="POST" action="/IOTBay/welcome.jsp">
+            <form method="POST" action="/IotBay/welcome.jsp">
                 <div class="mb-3">
                   <label for="name" class="form-label">Name</label>
                   <input type="text" class="form-control" name="name" aria-describedby="nameHelp" required>

@@ -28,7 +28,7 @@
               </div>
             <% } %>
             <h1 class="mb-3">Login</h1>
-             <form method="POST" action="/IOTBay/welcome.jsp">
+             <form method="POST" action="/IotBay/welcome.jsp">
                 <div class="mb-3">
                   <label for="email" class="form-label">Email address</label>
                   <input type="email" class="form-control" name="email" aria-describedby="emailHelp" required>

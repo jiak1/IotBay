@@ -17,7 +17,7 @@
             
             if(loginRequest != null && loginRequest.equals("login")){ //Trying to login
                 if(account == null || email.equals(account.email) == false || password.equals(account.password) == false){
-                    response.sendRedirect("/IOTBay/login.jsp?status=invalid");
+                    response.sendRedirect("/IotBay/login.jsp?status=invalid");
                     return;
                 }
                 name = account.getName();
@@ -34,7 +34,7 @@
         <jsp:include page="fragments/nav.jsp"></jsp:include>
         <div class="container-sm text-center mt-5">
             <h1 class="mb-3">Welcome <%=name%>!</h1>
-            <a class="btn btn-primary" href="/IOTBay/main.jsp" role="button">View Account Details</a>
+            <a class="btn btn-primary" href="/IotBay/main.jsp" role="button">View Account Details</a>
         </div>
     </body>
 </html>
