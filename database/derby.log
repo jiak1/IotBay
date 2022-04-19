@@ -1,0 +1,18 @@
+Tue Apr 19 18:27:00 AEST 2022 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
+----------------------------------------------------------------
+Tue Apr 19 18:27:00 AEST 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0180-40ee-99cc-000064516155 
+on database directory C:\Users\jackd\Documents\UNI\Introduction To Software Development\repos\IotBay\database\jackdb with class loader sun.misc.Launcher$AppClassLoader@5e2de80c 
+Loaded from file:/C:/Users/jackd/GlassFish_Server/javadb/lib/derby.jar
+java.vendor=JetBrains s.r.o
+java.runtime.version=1.8.0_242-release-1644-b01
+user.dir=C:\Users\jackd\GlassFish_Server\javadb
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=C:\Users\jackd\Documents\UNI\Introduction To Software Development\repos\IotBay\database
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Tue Apr 19 18:27:02 AEST 2022:
+Shutting down instance a816c00e-0180-40ee-99cc-000064516155 on database directory C:\Users\jackd\Documents\UNI\Introduction To Software Development\repos\IotBay\database\jackdb with class loader sun.misc.Launcher$AppClassLoader@5e2de80c 
+Tue Apr 19 18:27:02 AEST 2022 Thread[DRDAConnThread_3,5,main] (DATABASE = jackdb), (DRDAID = {2}), Database 'jackdb' shutdown.
