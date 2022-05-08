@@ -7,13 +7,16 @@
       </ul>
       <ul class="nav">
           <%
-              Account account = (Account)session.getAttribute("account");
+              User account = (User)session.getAttribute("user");
               if(account == null){
           %>
+            <li class="nav-item font-weight-bold"><a href="/IotBay/shop.jsp" class="nav-link link-dark px-2">Shop</a></li>
             <li class="nav-item font-weight-bold"><a href="/IotBay/login.jsp" class="nav-link link-dark px-2">Login</a></li>
             <li class="nav-item font-weight-bold"><a href="/IotBay/register.jsp" class="nav-link link-dark px-2">Register</a></li>
         <% } else { %>
-            <li class="nav-item font-weight-bold"><a href="/IotBay/logout.jsp" class="nav-link link-dark px-2">Logout</a></li>
+            <li class="nav-item font-weight-bold"><a href="/IotBay/shop.jsp" class="nav-link link-dark px-2">Shop</a></li>
+           <!-- <li class="nav-item font-weight-bold"><a href="/IotBay/logout.jsp" class="nav-link link-dark px-2">Logout</a></li>  -->
+            <li class="nav-item font-weight-bold"><a href="LogoutController" class="nav-link link-dark px-2">Logout</a></li> 
         <% } %>
       </ul>
     </div>

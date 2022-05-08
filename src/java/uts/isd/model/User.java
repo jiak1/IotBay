@@ -1,20 +1,23 @@
 package uts.isd.model;
 
 import java.io.Serializable;
+import java.util.Random;
 
-public class Account implements Serializable {
+public class User implements Serializable {
 
-    public String name;
-    public String dob;
-    public String phone;
-    public String address;
-    public String email;
-    public String password;
-
-    public Account() {
+    private String name;
+    private String dob;
+    private String phone;
+    private String address;
+    private String email;
+    private String password;
+    private int ID;
+    
+    public User() {
     }
 
-    public Account(String name, String dob, String phone, String address, String email, String password) {
+    public User(int ID, String name, String dob, String phone, String address, String email, String password) {
+        this.ID = ID;
         this.name = name;
         this.dob = dob;
         this.phone = phone;
@@ -23,6 +26,14 @@ public class Account implements Serializable {
         this.password = password;
     }
 
+    public int getID() {
+        return ID;
+    }
+        
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+        
     public String getName() {
         return name;
     }
