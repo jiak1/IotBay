@@ -7,20 +7,27 @@
     </head>
     <body>
         <jsp:include page="fragments/nav.jsp"></jsp:include>
+        <%
+            String existErr = (String) session.getAttribute("existErr");
+            String emailErr = (String) session.getAttribute("emailErr");
+            String passErr = (String) session.getAttribute("passErr");
+            String nameErr = (String) session.getAttribute("nameErr");
+        %>
         <div class="center-form text-center mt-5">
             <h1 class="mb-3">Register</h1>
-            <form method="POST" action="/IotBay/welcome.jsp">
+            <!-- <form method="POST" action="/IotBay/welcome.jsp"> -->
+            <form method="POST" action="RegisterServlet">
                 <div class="mb-3">
                   <label for="name" class="form-label">Name</label>
-                  <input type="text" class="form-control" name="name" aria-describedby="nameHelp" required>
+                  <input type="text" class="form-control" placeholder="<%=(nameErr != null ? nameErr : "Enter name")%>" name="name" aria-describedby="nameHelp" required>
                 </div>
                 <div class="mb-3">
                   <label for="email" class="form-label">Email address</label>
-                  <input type="email" class="form-control" name="email" aria-describedby="emailHelp" required>
+                  <input type="text" class="form-control" placeholder="<%=(emailErr != null ? emailErr : "Enter email")%>" name="email" aria-describedby="emailHelp" required>
                 </div>
                 <div class="mb-3">
                   <label for="password" class="form-label">Password</label>
-                  <input type="password" class="form-control" name="password" required>
+                  <input type="password" class="form-control" placeholder="<%=(passErr != null ? passErr : "Enter password")%>" name="password" required>
                 </div>
                 <div class="mb-3">
                   <label for="phone" class="form-label">Phone Number</label>
@@ -34,7 +41,7 @@
                   <label for="dob" class="form-label">Date Of Birth</label>
                   <input type="date" class="form-control" name="dob" aria-describedby="dobHelp" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Register Account</button>
+                <button type="submit" class="btn btn-primary">Register User</button>
               </form>
         </div>
     </body>

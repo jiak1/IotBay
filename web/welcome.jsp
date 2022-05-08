@@ -8,7 +8,7 @@
     </head>
     <body>
         <%
-            Account account = (Account)session.getAttribute("account");
+            User user = (User)session.getAttribute("user");
             
             String email = request.getParameter("email");
             String password = request.getParameter("password");
@@ -16,19 +16,19 @@
             String name = request.getParameter("name");
             
             if(loginRequest != null && loginRequest.equals("login")){ //Trying to login
-                if(account == null || email.equals(account.email) == false || password.equals(account.password) == false){
+                if(user == null || email.equals(user.email) == false || password.equals(user.password) == false){
                     response.sendRedirect("/IotBay/login.jsp?status=invalid");
                     return;
                 }
-                name = account.getName();
+                name = user.getName();
             }else{            
                 String dob = request.getParameter("dob");
                 String phone = request.getParameter("phone");
                 String address = request.getParameter("address");
                 
-                account = new Account(name,dob,phone,address,email,password);
+                user = new User(name,dob,phone,address,email,password);
                 
-                session.setAttribute("account", account);
+                session.setAttribute("user", user);
             }
         %>
         <jsp:include page="fragments/nav.jsp"></jsp:include>

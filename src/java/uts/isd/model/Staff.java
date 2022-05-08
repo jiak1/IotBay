@@ -2,7 +2,7 @@ package uts.isd.model;
 
 import java.io.Serializable;
 
-public class Staff extends Account implements Serializable {
+public class Staff extends User implements Serializable {
 
     public String role;
 
@@ -10,8 +10,8 @@ public class Staff extends Account implements Serializable {
         super();
     }
 
-    public Staff(String role, String name, String dob, String phone, String address, String email, String password) {
-        super(name, dob, phone, address, email, password);
+    public Staff(int ID, String role, String name, String dob, String phone, String address, String email, String password) {
+        super(ID, name, dob, phone, address, email, password);
         this.role = role;
     }
 
