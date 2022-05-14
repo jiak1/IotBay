@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Supply implements Serializable {
-
+    
+    public int id;
     public String productName;
     public double productPrice;
     public int discount;
@@ -19,7 +20,8 @@ public class Supply implements Serializable {
     public Supply() {
     }
 
-    public Supply(String productName, double productPrice, int discount, Date productAddedDate, int weight, Date productExpiryDate, int productHeight, int productWidth, int productLength, String productLocation) {
+    public Supply(int id,String productName, double productPrice, int discount, Date productAddedDate, int weight, Date productExpiryDate, int productHeight, int productWidth, int productLength, String productLocation) {
+        this.id=id;
         this.productName = productName;
         this.productPrice = productPrice;
         this.discount = discount;
@@ -30,6 +32,14 @@ public class Supply implements Serializable {
         this.productWidth = productWidth;
         this.productLength = productLength;
         this.productLocation = productLocation;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getProductName() {
