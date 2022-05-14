@@ -10,6 +10,7 @@ public class TestDB {
     private static Scanner in = new Scanner(System.in);
     private DBConnector connector;
     private Connection conn;
+    
     private DBManager db;
     
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
@@ -27,7 +28,7 @@ public class TestDB {
     }
     
     private char readChoice() {
-        System.out.print("Operation CRUDS or * to exit: ");
+        System.out.print("(User) Operation CRUDS or * to exit: ");
         return in.nextLine().charAt(0);
     }
 
@@ -60,7 +61,7 @@ public class TestDB {
     private void testAdd() {
         System.out.print("User name:");
         String name = in.nextLine();
-        System.out.print("User dob:");
+        System.out.print("User dob ('yyyy-mm-dd'):");
         String dob = in.nextLine();
         System.out.print("User phone:");
         String phone = in.nextLine();

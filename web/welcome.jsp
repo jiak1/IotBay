@@ -30,7 +30,21 @@
                 
                 session.setAttribute("user", user);
             }
+            if (user.getAdminaccess()){
         %>
+        <div class="container-sm text-center mt-5">
+            <!--<h1 class="mb-3">Add Products? !</h1> -->
+            <a class="btn btn-primary" href="/IotBay/registerProduct.jsp" role="button">Register Products</a>
+        </div> 
+        <div class="container-sm text-center mt-5">
+            <!--<h1 class="mb-3">Add Products? !</h1> -->
+            <a class="btn btn-primary" href="/IotBay/amendProductSearch.jsp" role="button">Amend Products</a>
+        </div>
+        <div class="container-sm text-center mt-5">
+            <!--<h1 class="mb-3">Add Products? !</h1> -->
+            <a class="btn btn-primary" href="/IotBay/deleteProductSearch.jsp" role="button">Delete Products</a>
+        </div>
+         <% } %>
         <jsp:include page="fragments/nav.jsp"></jsp:include>
         <div class="container-sm text-center mt-5">
             <h1 class="mb-3">Welcome <%=name%>!</h1>

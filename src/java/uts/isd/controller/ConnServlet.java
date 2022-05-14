@@ -28,7 +28,8 @@ public class ConnServlet extends HttpServlet {
     private DBConnector db;
     private DBManager manager;
     private Connection conn;
-    
+    private ProductDBManager prod_db;
+    private Connection conn2;
     @Override //Create an instance of DBConnector for the deployment session
     public void init() {
         try {
@@ -44,13 +45,16 @@ public class ConnServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         conn = db.openConnection(); //Create a DB connection
+        conn2 = db.openConnection(); //Create a DB connection
         try {
             manager = new DBManager(conn); //Create a DB manager
+            prod_db = new ProductDBManager(conn2); //Create a DB manager
         } catch (SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         //export the DB manager to the view-session (JSPs)
         session.setAttribute("manager", manager); //Add the manager to the session
+        session.setAttribute("prod_db", prod_db); //Add the manager to the session
     }
     
     @Override //Destroy the servlet and release the resources of the application

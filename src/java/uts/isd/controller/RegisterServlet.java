@@ -30,6 +30,7 @@ public class RegisterServlet extends HttpServlet {
         String address = request.getParameter("address");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        boolean adminaccess = Boolean.parseBoolean(request.getParameter("adminaccess"));
         DBManager manager = (DBManager) session.getAttribute("manager");
         validator.clear(session);
         
@@ -50,7 +51,7 @@ public class RegisterServlet extends HttpServlet {
                     request.getRequestDispatcher("register.jsp").include(request, response);
                 }else{
                     manager.addUser(name, dob, phone, address, email, password);
-                    User user = new User(manager.findUser(email, password).getID(), name, dob, phone, address, email, password);
+                    User user = new User(manager.findUser(email, password).getID(), name, dob, phone, address, email, password, adminaccess);
                     session.setAttribute("user", user);
                     request.getRequestDispatcher("main.jsp").include(request, response);
                 }
