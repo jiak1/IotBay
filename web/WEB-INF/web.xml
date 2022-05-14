@@ -25,6 +25,26 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>uts.isd.controller.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CartController</servlet-name>
+        <servlet-class>uts.isd.controller.CartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuantityController</servlet-name>
+        <servlet-class>uts.isd.controller.QuantityController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckOutController</servlet-name>
+        <servlet-class>uts.isd.controller.CheckOutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveItemController</servlet-name>
+        <servlet-class>uts.isd.controller.RemoveItemController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderNowController</servlet-name>
+        <servlet-class>uts.isd.controller.OrderNowController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
@@ -48,6 +68,26 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/LogoutController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartController</servlet-name>
+        <url-pattern>/CartController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuantityController</servlet-name>
+        <url-pattern>/quantity-inc-dec</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckOutController</servlet-name>
+        <url-pattern>/check-out</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveItemController</servlet-name>
+        <url-pattern>/remove-cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderNowController</servlet-name>
+        <url-pattern>/order-now</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

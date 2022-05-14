@@ -45,7 +45,8 @@ public class ConnServlet extends HttpServlet {
         HttpSession session = request.getSession();
         conn = db.openConnection(); //Create a DB connection
         try {
-            manager = new DBManager(conn); //Create a DB manager
+            manager = new DBManager(conn);
+            //Create a DB manager
         } catch (SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
