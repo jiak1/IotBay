@@ -35,7 +35,7 @@ public class DBManager {
     
     private String readQuery =  "SELECT * FROM IOTUSER.USERDB WHERE EMAIL=? AND PASSWORD=?";
     private String updateQuery = "UPDATE IOTUSER.USERDB SET \"NAME\"=? ,PASSWORD=? ,PHONE=? WHERE USERID=?";
-    private String deleteQuery = "DELETE FROM IOTUSER.USERDB WHERE EMAIL= ?";
+    private String deleteQuery = "DELETE FROM IOTUSER.USERDB WHERE EMAIL=?";
     private String readProductByCatOrLocaleQuery = "SELECT * FROM IOTUSER.PRODUCTDB WHERE LOCATION=? AND CATEGORY=?"; //related to productDB
     private String readProductQuerySearch = "SELECT * FROM IOTUSER.PRODUCTDB WHERE \"NAME\" LIKE ?"; //related to productDB
     private String updateProduct = "UPDATE IOTUSER.PRODUCTDB SET \"NAME\"=? , PRICE=?, TAX=?, ADDED_DT=?, EXPIRY_DT=?, QUANTITY=?, CATEGORY=?, LOCATION=? WHERE PRODUCTID=? "; //related to productDB
@@ -125,9 +125,15 @@ public class DBManager {
     //delete a user from the database   
     public void deleteUser(String email) throws SQLException{       
        //code for delete-operation   
-        deleteSt.setString(1, email);
-        int row = deleteSt.executeUpdate();
-        System.out.println("row "+row+" deleted successfuly");
+        try{
+            deleteSt.setString(1, email);
+            int row = deleteSt.executeUpdate();
+            System.out.println("row "+row+" deleted successfuly");
+        }
+        catch (Exception ex) {
+            System.out.println(ex);
+        }
+        
     }
     
     //Fetch All: List all users

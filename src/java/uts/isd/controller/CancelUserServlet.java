@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uts.isd.controller;
 
 import java.io.IOException;
@@ -10,41 +5,45 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-//import sun.text.normalizer.UBiDiProps;
-import uts.isd.model.Product;
 import uts.isd.model.User;
 import uts.isd.model.dao.DBManager;
-//import uts.isd.model.dao.ProductDBManager;
 
 /**
  *
  * @author AlexK
  */
-public class DeleteProductServlet extends HttpServlet {
+public class CancelUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Validator validator = new Validator();
         User user = (User) session.getAttribute("user");
-        Product product = (Product) session.getAttribute("product");
-        
+        boolean isLoggedIn = (user != null);
         DBManager manager = (DBManager) session.getAttribute("manager");
-        
-
-        try {
-                int updatedId = product.getProductID();
-                manager.deleteProduct(updatedId);
-                manager.addProductManagementLog(user.getID(), product.getProductID(), "ProductID " + updatedId +" deleted", "" + user.getEmail());
-                session.setAttribute("productid", ""+ updatedId);
-                request.getRequestDispatcher("/productwasDeleted.jsp").include(request, response);
-
+        try{
+            
+            if(isLoggedIn){
+                int userId = user.getID();
+                String email = user.getEmail();
+                String name = user.getName();
+                manager.addUserManagementLog(userId, "DELETED: User name " + name + " Email " + email + "", "" + email);
+                manager.deleteUser(email);
+                session.setAttribute("name", name);
+                RequestDispatcher requestDispatcher;
+                requestDispatcher = request.getRequestDispatcher("/cancelUser.jsp");//.include(request, response);
+                requestDispatcher.forward(request, response);
+                
+                }else{
+                    request.getRequestDispatcher("/confirmCancelUser.jsp").include(request, response);
+                }
+                
         } catch (SQLException ex) {
             Logger.getLogger(RegisterProductServlet.class.getName()).log(Level.SEVERE, null, ex);
         }        

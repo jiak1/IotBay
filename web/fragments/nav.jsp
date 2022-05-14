@@ -15,7 +15,8 @@
             <li class="nav-item font-weight-bold"><a href="/IotBay/register.jsp" class="nav-link link-dark px-2">Register</a></li>
         <% } else { %>
             <li class="nav-item font-weight-bold"><a href="/IotBay/searchProducts.jsp" class="nav-link link-dark px-2">Shop</a></li>
-           <!-- <li class="nav-item font-weight-bold"><a href="/IotBay/logout.jsp" class="nav-link link-dark px-2">Logout</a></li>  -->
+            <li class="nav-item font-weight-bold"><a href="AmendUserServlet" class="nav-link link-dark px-2">Amend My Details</a></li> 
+            <li class="nav-item font-weight-bold"><a href="/IotBay/confirmCancelUser.jsp" class="nav-link link-dark px-2">Cancel My Account</a></li> 
             <li class="nav-item font-weight-bold"><a href="LogoutController" class="nav-link link-dark px-2">Logout</a></li> 
         <% } %>
       </ul>
