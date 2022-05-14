@@ -10,6 +10,7 @@ public class TestDB {
     private static Scanner in = new Scanner(System.in);
     private DBConnector connector;
     private Connection conn;
+    
     private DBManager db;
     
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
@@ -27,7 +28,7 @@ public class TestDB {
     }
     
     private char readChoice() {
-        System.out.print("Operation CRUDS or * to exit: ");
+        System.out.print("(User) Operation CRUDS or * to exit: ");
         return in.nextLine().charAt(0);
     }
 
@@ -60,7 +61,7 @@ public class TestDB {
     private void testAdd() {
         System.out.print("User name:");
         String name = in.nextLine();
-        System.out.print("User dob:");
+        System.out.print("User dob ('yyyy-mm-dd'):");
         String dob = in.nextLine();
         System.out.print("User phone:");
         String phone = in.nextLine();
@@ -103,13 +104,19 @@ public class TestDB {
                 User user = db.findUser(email, password);
                 System.out.println("Updating "+ user.getName()+" account details");
                 
-                System.out.print("Account name: ");
+                System.out.print("Person (user's) name: ");
                 String name = in.nextLine();
-                System.out.print("Account password: ");
-                String newpassword = in.nextLine();
-                System.out.print("Account phone: ");
+                System.out.print("DOB: ");
+                String dob = in.nextLine();
+                System.out.print("Phone: ");
                 String phone = in.nextLine();
-                db.updateUser(name, newpassword, phone, user.getID());
+                System.out.print("Address: ");
+                String address = in.nextLine();
+                System.out.print("Email: ");
+                String newemail = in.nextLine();
+                System.out.print("Password: ");
+                String newpassword = in.nextLine();
+                db.updateUser(name, dob, phone, address, newemail, newpassword, user.getID());
             } else {
                 System.out.println("Account does not exist.");
             }

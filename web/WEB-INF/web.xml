@@ -26,24 +26,52 @@
         <servlet-class>uts.isd.controller.LogoutController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CartController</servlet-name>
-        <servlet-class>uts.isd.controller.CartController</servlet-class>
+        <servlet-name>RegisterProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.RegisterProductServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>QuantityController</servlet-name>
-        <servlet-class>uts.isd.controller.QuantityController</servlet-class>
+        <servlet-name>AmendProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AmendProductServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CheckOutController</servlet-name>
-        <servlet-class>uts.isd.controller.CheckOutController</servlet-class>
+        <servlet-name>SearchProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchProductServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RemoveItemController</servlet-name>
-        <servlet-class>uts.isd.controller.RemoveItemController</servlet-class>
+        <servlet-name>AmendProductSearchServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AmendProductSearchServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>OrderNowController</servlet-name>
-        <servlet-class>uts.isd.controller.OrderNowController</servlet-class>
+        <servlet-name>DeleteProductSearch</servlet-name>
+        <servlet-class>uts.isd.controller.DeleteProductSearch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.DeleteProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchtermProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchtermProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchProductByCatOrLocaleServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchProductByCatOrLocaleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>amendUserServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AmendUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>cancelUserServlet</servlet-name>
+        <servlet-class>uts.isd.controller.CancelUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelUserServlet</servlet-name>
+        <servlet-class>uts.isd.controller.CancelUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AmendUserServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AmendUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
@@ -70,24 +98,52 @@
         <url-pattern>/LogoutController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CartController</servlet-name>
-        <url-pattern>/CartController</url-pattern>
+        <servlet-name>RegisterProductServlet</servlet-name>
+        <url-pattern>/RegisterProductServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>QuantityController</servlet-name>
-        <url-pattern>/quantity-inc-dec</url-pattern>
+        <servlet-name>AmendProductServlet</servlet-name>
+        <url-pattern>/AmendProductServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CheckOutController</servlet-name>
-        <url-pattern>/check-out</url-pattern>
+        <servlet-name>SearchProductServlet</servlet-name>
+        <url-pattern>/SearchProductServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RemoveItemController</servlet-name>
-        <url-pattern>/remove-cart</url-pattern>
+        <servlet-name>AmendProductSearchServlet</servlet-name>
+        <url-pattern>/AmendProductSearchServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>OrderNowController</servlet-name>
-        <url-pattern>/order-now</url-pattern>
+        <servlet-name>DeleteProductSearch</servlet-name>
+        <url-pattern>/DeleteProductSearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <url-pattern>/DeleteProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchtermProductServlet</servlet-name>
+        <url-pattern>/SearchtermProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchProductByCatOrLocaleServlet</servlet-name>
+        <url-pattern>/SearchProductByCatOrLocaleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>amendUserServlet</servlet-name>
+        <url-pattern>/amendUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cancelUserServlet</servlet-name>
+        <url-pattern>/cancelUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelUserServlet</servlet-name>
+        <url-pattern>/CancelUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AmendUserServlet</servlet-name>
+        <url-pattern>/AmendUserServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -6,8 +6,8 @@ public class Customer extends User {
         super();
     }
 
-    public Customer(int ID, String name, String dob, String phone, String address, String email, String password) {
-        super(ID, name, dob, phone, address, email, password);
+    public Customer(int ID, String name, String dob, String phone, String address, String email, String password, boolean adminaccess) {
+        super(ID, name, dob, phone, address, email, password, adminaccess);
     }
 
 }

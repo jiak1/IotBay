@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="uts.isd.model.*" %> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,7 +40,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="dob" class="form-label">Date Of Birth</label>
-                  <input type="date" class="form-control" name="dob" aria-describedby="dobHelp" required>
+                  <input type="text" class="form-control" name="dob" aria-describedby="dobHelp" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Register User</button>
               </form>

@@ -5,6 +5,11 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +35,7 @@ public class RegisterServlet extends HttpServlet {
         String address = request.getParameter("address");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        boolean adminaccess = Boolean.parseBoolean(request.getParameter("adminaccess"));
         DBManager manager = (DBManager) session.getAttribute("manager");
         validator.clear(session);
         
@@ -50,9 +56,11 @@ public class RegisterServlet extends HttpServlet {
                     request.getRequestDispatcher("register.jsp").include(request, response);
                 }else{
                     manager.addUser(name, dob, phone, address, email, password);
-                    User user = new User(manager.findUser(email, password).getID(), name, dob, phone, address, email, password);
+                    User user = new User(manager.findUser(email, password).getID(), name, dob, phone, address, email, password, adminaccess);
                     session.setAttribute("user", user);
+                    manager.addUserManagementLog(user.getID(), "User registered - name:" + name + " email: " + email + " dob: " + dob + " address: " + address + " phone: " + phone, email);
                     request.getRequestDispatcher("main.jsp").include(request, response);
+                    
                 }
             }catch (SQLException ex) {
                 Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);

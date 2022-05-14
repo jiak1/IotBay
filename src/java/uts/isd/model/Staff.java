@@ -10,8 +10,8 @@ public class Staff extends User implements Serializable {
         super();
     }
 
-    public Staff(int ID, String role, String name, String dob, String phone, String address, String email, String password) {
-        super(ID, name, dob, phone, address, email, password);
+    public Staff(int ID, String role, String name, String dob, String phone, String address, String email, String password, boolean adminaccess) {
+        super(ID, name, dob, phone, address, email, password, adminaccess);
         this.role = role;
     }
 

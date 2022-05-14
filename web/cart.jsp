@@ -4,6 +4,7 @@
     Author     : DELL
 --%>
 
+<%@page import="com.sun.media.jfxmedia.logging.Logger"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="uts.isd.model.dao.OrderItemDao"%>
@@ -15,13 +16,15 @@
     request.setAttribute("dcf", dcf);
     ArrayList<ShoppingCart> cart_list = (ArrayList<ShoppingCart>) session.getAttribute("cart-list");
     List<ShoppingCart> cartProduct = null;
+
     if(cart_list!=null){
         DBConnector db = new DBConnector();
         OrderItemDao pd = new OrderItemDao(db.openConnection());
         double total = pd.getTotalCartPrice(cart_list);
         request.setAttribute("total",total);
         cartProduct = pd.getCartItems(cart_list);
-        request.setAttribute("cart_list",cart_list);
+        request.setAttribute("cart-list",cart_list);
+        session.setAttribute("cart-list", cart_list);
     }
     
 %>
