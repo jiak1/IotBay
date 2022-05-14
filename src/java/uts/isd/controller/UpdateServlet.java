@@ -36,7 +36,7 @@ public class UpdateServlet extends HttpServlet {
         try {
             if (user != null) {
                 session.setAttribute("user", user);
-                manager.updateUser(name, password, phone, ID);
+                manager.updateUser(name, dob, phone, address, email, password, ID);
                 session.setAttribute("updated", "Update was successful");
                 request.getRequestDispatcher("edit.jsp").include(request, response);
             } else {
