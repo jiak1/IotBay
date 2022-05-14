@@ -58,7 +58,7 @@ public class RegisterServlet extends HttpServlet {
                     manager.addUser(name, dob, phone, address, email, password);
                     User user = new User(manager.findUser(email, password).getID(), name, dob, phone, address, email, password, adminaccess);
                     session.setAttribute("user", user);
-                    manager.addUserManagementLog(user.getID(), "User registered - name:" + name + " email: ", email);
+                    manager.addUserManagementLog(user.getID(), "User registered - name:" + name + " email: " + email + " dob: " + dob + " address: " + address + " phone: " + phone, email);
                     request.getRequestDispatcher("main.jsp").include(request, response);
                     
                 }

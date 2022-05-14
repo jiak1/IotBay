@@ -73,7 +73,6 @@ public class RegisterProductServlet extends HttpServlet {
                     //prod_db.addProduct(name, price, tax, added_dt, expiry_dt, quantity, category, location);
                     manager.addProduct(name, Double.parseDouble(price), Double.parseDouble(tax), added_dt, expiry_dt, Integer.parseInt(quantity), category, location);
                     Product product = new Product(manager.fetchProductsByName(name).getProductID(), name, Double.parseDouble(price), Double.parseDouble(tax), added_dt, expiry_dt, Integer.parseInt(quantity), category, location);
-                    manager.addUserManagementLog(0, tax, tax);
                     manager.addProductManagementLog(user.getID(), product.getProductID(), "Product registered with name:" + name + " price: " + price + " tax: " + tax + " quantity: " + quantity + " category: " + category + " location: " + location + "", "" + user.getEmail());
                     session.setAttribute("product", product);
                     request.getRequestDispatcher("/productAdded.jsp").include(request, response);
