@@ -6,11 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.ArrayList;
 import uts.isd.model.User;
 import uts.isd.model.Product;
+import uts.isd.model.Log;
 /* 
 * DBManager is the primary DAO class to interact with the database. /* 
 * DBManager is the primary DAO class to interact with the database. 
@@ -26,14 +28,24 @@ public class DBManager {
     private PreparedStatement readProdSt; //related to productDB
     private PreparedStatement updateProdSt; //related to productDB
     private PreparedStatement deleteProdSt; //related to productDB
+    private PreparedStatement readLogSt; //related to LOGS DB
+    private PreparedStatement updateUserLogSt; //related to LOGS DB
+    private PreparedStatement updateProductLogSt; //related to LOGS DB
+    private PreparedStatement readLogDatesSt; //related to LOGS DB - date search
+    
     private String readQuery =  "SELECT * FROM IOTUSER.USERDB WHERE EMAIL=? AND PASSWORD=?";
     private String updateQuery = "UPDATE IOTUSER.USERDB SET \"NAME\"=? ,PASSWORD=? ,PHONE=? WHERE USERID=?";
-    private String deleteQuery = "DELETE FROM IOTUSER.USERDB WHERE EMAIL= ?";
+    private String deleteQuery = "DELETE FROM IOTUSER.USERDB WHERE EMAIL=?";
     private String readProductByCatOrLocaleQuery = "SELECT * FROM IOTUSER.PRODUCTDB WHERE LOCATION=? AND CATEGORY=?"; //related to productDB
     private String readProductQuerySearch = "SELECT * FROM IOTUSER.PRODUCTDB WHERE \"NAME\" LIKE ?"; //related to productDB
     private String updateProduct = "UPDATE IOTUSER.PRODUCTDB SET \"NAME\"=? , PRICE=?, TAX=?, ADDED_DT=?, EXPIRY_DT=?, QUANTITY=?, CATEGORY=?, LOCATION=? WHERE PRODUCTID=? "; //related to productDB
     private String deleteProduct = "DELETE FROM IOTUSER.PRODUCTDB WHERE PRODUCTID=?"; //related to productDB
+    private String readLogByUserIDQuery = "SELECT * FROM IOTUSER.LOGS WHERE USERID=?"; //related to LOG DB
+    private String readLogByUserIDANDDate = "SELECT * FROM IOTUSER.LOGS WHERE USERID=? AND LOGDATE>=? AND LOGDATE <=?"; //related to LOG DB
+    private String updateUserLogs = "INSERT INTO IOTUSER.LOGS(USERID, DETAILS, EMAIL, LOGDATE) VALUES (?, ?, ?, ?)"; //related to LOG DB
+    private String updateProductLogs = "INSERT INTO IOTUSER.LOGS(USERID, PRODUCTID, DETAILS, EMAIL, LOGDATE) VALUES (?, ?, ?, ?, ?)"; //related to LOG DB
     
+            
     public DBManager(Connection conn) throws SQLException {       
        conn.setAutoCommit(true);
        st = conn.createStatement(); 
@@ -44,6 +56,11 @@ public class DBManager {
        updateProdSt = conn.prepareStatement(updateProduct);
        readProdSt = conn.prepareStatement(readProductQuerySearch);
        deleteProdSt = conn.prepareStatement(deleteProduct);
+       readLogSt = conn.prepareStatement(readLogByUserIDQuery);
+       readLogDatesSt = conn.prepareStatement(readLogByUserIDANDDate);
+       updateUserLogSt = conn.prepareStatement(updateUserLogs);
+       updateProductLogSt = conn.prepareStatement(updateProductLogs);
+               
     }
 
     //Find user by email and password in the database   
@@ -108,9 +125,15 @@ public class DBManager {
     //delete a user from the database   
     public void deleteUser(String email) throws SQLException{       
        //code for delete-operation   
-        deleteSt.setString(1, email);
-        int row = deleteSt.executeUpdate();
-        System.out.println("row "+row+" deleted successfuly");
+        try{
+            deleteSt.setString(1, email);
+            int row = deleteSt.executeUpdate();
+            System.out.println("row "+row+" deleted successfuly");
+        }
+        catch (Exception ex) {
+            System.out.println(ex);
+        }
+        
     }
     
     //Fetch All: List all users
@@ -301,17 +324,6 @@ public class DBManager {
         return products;
     }
     
-    //get a product image
-    public String fetchImageForProduct(Product product) throws SQLException {
-        String fetch = "SELECT * FROM IOTUSER.PRODUCTIMAGEDB WHERE CATEGORY='" + product.productCategory + "'";
-        //ResultSet rs = stProd.executeQuery(fetch);
-        ResultSet rs = st.executeQuery(fetch);
-        while (rs.next()) {
-            return rs.getString(2); 
-        }
-        return "IoT.png";   
-    }
-    
     //delete a product from the database   
     public void deleteProduct(int productID) throws SQLException{       
        //code for delete-operation   
@@ -319,4 +331,93 @@ public class DBManager {
         int row = deleteProdSt.executeUpdate();
         System.out.println("row "+row+" deleted successfuly");
     }
+    
+    //Add a log into the database related to user (non-product) activities 
+    public void addUserManagementLog(int userID, String details, String email) throws SQLException {                   //code for add-operation       
+         
+        try{
+            updateUserLogSt.setInt(1, userID);
+            updateUserLogSt.setString(2, details);
+            updateUserLogSt.setString(3, email);
+            updateUserLogSt.setTimestamp(4, new java.sql.Timestamp(new java.util.Date().getTime()));
+            updateUserLogSt.executeUpdate();
+        } catch (Exception ex) {
+            {
+                System.out.println(ex);
+            }
+            
+        }
+         
+    }
+    
+    //Add a log into the database related to product related activities 
+    public void addProductManagementLog(int userID, int productID, String details, String email) throws SQLException {                   //code for add-operation       
+        try{
+            updateProductLogSt.setInt(1, userID);
+            updateProductLogSt.setInt(2, productID);
+            updateProductLogSt.setString(3, details);
+            updateProductLogSt.setString(4, email);
+            updateProductLogSt.setTimestamp(5, new java.sql.Timestamp(new java.util.Date().getTime()));
+            updateProductLogSt.executeUpdate();
+        } catch (Exception ex) {
+            {
+                System.out.println(ex);
+            }
+        }
+    }
+    
+    //Search log for user activities
+    public ArrayList<Log> getUserLogs(String userID) throws SQLException {                   //code for add-operation       
+        try{
+            readLogSt.setString(1, userID);
+            ResultSet rs = readLogSt.executeQuery();
+            ArrayList<Log> logs = new ArrayList();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            while (rs.next()) {
+                int logID = Integer.parseInt(rs.getString(1));
+                int productID = Integer.parseInt(rs.getString(3));
+                String details = rs.getString(4);
+                String email = rs.getString(5);
+                try{
+                    Date logdate = sdf.parse(rs.getString(6));
+                    logs.add(new Log(logID, Integer.parseInt(userID), productID, details, email, logdate));
+                }
+                catch(Exception e){
+                    Date logdate = new java.util.Date();
+                    logs.add(new Log(logID, Integer.parseInt(userID), productID, details, email, logdate));
+                }
+            return logs;
+            }
+        }
+        catch(Exception e) {
+              System.out.println(  e);
+        }
+        return null;
+    }
+    
+    public ArrayList<Log> getUserLogsByDate(String userID, String startdate, String enddate) throws SQLException {                   //code for add-operation       
+        readLogDatesSt.setString(1, userID);
+        readLogDatesSt.setString(2, startdate);
+        readLogDatesSt.setString(3, startdate);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        ResultSet rs = readLogDatesSt.executeQuery();
+        ArrayList<Log> logs = new ArrayList();
+        while (rs.next()) {
+            try{
+                int logID = Integer.parseInt(rs.getString(1));
+                int productID = Integer.parseInt(rs.getString(3));
+                String details = rs.getString(4);
+                String email = rs.getString(5);
+                Date logdate = sdf.parse(rs.getString(6));
+                logs.add(new Log(logID, Integer.parseInt(userID), productID, details, email, logdate));
+                }
+                catch (Exception e){
+                    System.out.println(  e);
+                }
+            }
+        return logs;
+    }
+    
+    
+    
 }

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 //import sun.text.normalizer.UBiDiProps;
 import uts.isd.model.Product;
 import uts.isd.model.dao.DBManager;
+import uts.isd.model.User;
 //import uts.isd.model.dao.ProductDBManager;
 
 /**
@@ -34,14 +35,40 @@ public class AmendProductServlet extends HttpServlet {
         
         Product product = (Product) session.getAttribute("product");
         //String productID = request.getParameter("productID");
+        String changes = "Changed:";
         String name = request.getParameter("name");
+        if(!name.equals("")){
+            changes += " prod_name to "+ name ;
+        }
         String price = request.getParameter("price");
+        if(!price.equals("")){
+            changes += " price to "+ price;
+        }
         String tax = request.getParameter("tax");
+        if(!tax.equals("")){
+            changes += " tax to "+ tax;
+        }
         String added_dt = request.getParameter("added_dt");
+        if(!added_dt.equals("")){
+            changes += " added_dt to "+ added_dt;
+        }
         String expiry_dt = request.getParameter("expiry_dt");
+        if(!expiry_dt.equals("")){
+            changes += " expiry_dt to "+ expiry_dt;
+        }
         String quantity = request.getParameter("quantity");
+        if(!quantity.equals("")){
+            changes += " quantity to "+ quantity;
+        }
         String category = request.getParameter("category");
+        if(!category.equals("")){
+            changes += " category to "+ category;
+        }
         String location = request.getParameter("location");
+        if(!location.equals("")){
+            changes += " location to "+ location;
+        }
+        User user = (User) session.getAttribute("user");
         DBManager manager = (DBManager) session.getAttribute("manager");
         validator.clear(session);
         
@@ -73,24 +100,15 @@ public class AmendProductServlet extends HttpServlet {
             try {
                     //prod_db.addProduct(name, price, tax, added_dt, expiry_dt, quantity, category, location);
                     manager.updateProduct(product, name, price, tax, added_dt, expiry_dt, quantity, category, location, product.getProductID());
-                    //manager.updateProduct(product, name.equals("") ? product.getProductName() : name, 
-                    //                    price.equals("") ? "" + product.getProductPrice() : price,  
-                    //                    tax.equals("") ? "" + product.getProductTax() : tax, 
-                    //                    added_dt.equals("") ? product.getProductAddedDate() : added_dt, 
-                    //                    expiry_dt.equals("") ? product.getProductExpiryDate() : expiry_dt, 
-                    //                    quantity.equals("") ? "" + product.getProductQuantity() : quantity, 
-                    //                    category.equals("") ? product.getProductCategory(): category, 
-                    //                    location.equals("") ? product.getProductLocation() : location, 
-                    //                    product.getProductID());
                     int updatedId = product.getProductID();
                     product = manager.fetchProductsByID(updatedId);
-                    //product = new Product(manager.fetchProductsByName(name).getProductID(), name, Double.parseDouble(price), Double.parseDouble(tax), added_dt, expiry_dt, Integer.parseInt(quantity), category, location);
+                    manager.addProductManagementLog(user.getID(), product.getProductID(), changes, "" + user.getEmail());
                     session.setAttribute("product", product);
                     request.getRequestDispatcher("/productwasUpdated.jsp").include(request, response);
                 
             } catch (SQLException ex) {
                 Logger.getLogger(RegisterProductServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        }
             
         }        
     }

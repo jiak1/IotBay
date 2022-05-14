@@ -14,11 +14,6 @@
     OrderItemDao pd = new OrderItemDao(db.openConnection());
     List<OrderLineItem> products = pd.getAllOrders();
     
-ArrayList<ShoppingCart> cart_list = (ArrayList<ShoppingCart>) session.getAttribute("cart-list");
-    if(cart_list!=null){
-        request.setAttribute("cart_list",cart_list);
-    }
-    
 %>
 <!DOCTYPE html>
 <html>
