@@ -5,6 +5,11 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -53,7 +58,9 @@ public class RegisterServlet extends HttpServlet {
                     manager.addUser(name, dob, phone, address, email, password);
                     User user = new User(manager.findUser(email, password).getID(), name, dob, phone, address, email, password, adminaccess);
                     session.setAttribute("user", user);
+                    manager.addUserManagementLog(user.getID(), "User registered - name:" + name + " email: ", email);
                     request.getRequestDispatcher("main.jsp").include(request, response);
+                    
                 }
             }catch (SQLException ex) {
                 Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);

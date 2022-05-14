@@ -47,7 +47,7 @@
                   <input type="text" class="form-control" placeholder="<%=(intErr != null ? intErr : "Enter quantity (stock)")%>" name="quantity" required>
                 </div>
                 <div class="mb-3">
-                  <label for="category" class="form-label">Category (Wearable tech, Smart TV, Voice control device, Printer, Camera, Lights, Thermostat, E-reader)</label>
+                  <label for="category" class="form-label">Category (Wearable tech, Gaming Console, Smart TV, Voice control device, Printer, Camera, Lights, Thermostat, E-reader)</label>
                   <input type="text" class="form-control" placeholder="<%=(nameErr != null ? nameErr : "Enter category")%>" name="category" required>
                 </div>
                 <div class="mb-3">

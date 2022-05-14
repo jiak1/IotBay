@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 //import sun.text.normalizer.UBiDiProps;
 import uts.isd.model.Product;
+import uts.isd.model.User;
 import uts.isd.model.dao.DBManager;
 //import uts.isd.model.dao.ProductDBManager;
 
@@ -31,6 +32,7 @@ public class DeleteProductServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Validator validator = new Validator();
+        User user = (User) session.getAttribute("user");
         Product product = (Product) session.getAttribute("product");
         
         DBManager manager = (DBManager) session.getAttribute("manager");
@@ -40,7 +42,7 @@ public class DeleteProductServlet extends HttpServlet {
                 //prod_db.addProduct(name, price, tax, added_dt, expiry_dt, quantity, category, location);
                 int updatedId = product.getProductID();
                 manager.deleteProduct(updatedId);
-                
+                manager.addProductManagementLog(user.getID(), product.getProductID(), "ProductID " + updatedId +" deleted", "" + user.getEmail());
                 session.setAttribute("productid", ""+ updatedId);
                 request.getRequestDispatcher("/productwasDeleted.jsp").include(request, response);
 
