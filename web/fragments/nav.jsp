@@ -29,6 +29,7 @@
             <li class="nav-item"><a href="/IotBay/amendUserServlet" class="nav-link link-dark px-2">Amend Details</a></li> 
             <li class="nav-item"><a href="/IotBay/confirmCancelUser.jsp" class="nav-link link-dark px-2">Cancel Account</a></li> 
            <li class="nav-item"><a href="LogoutController" class="nav-link link-dark px-2">Logout</a></li> 
+           <li class="nav-item"><a href="/IotBay/AccountsServlet" class="nav-link link-dark px-2">Accounts</a></li> 
         <% } %>
       </ul>
     </div>
