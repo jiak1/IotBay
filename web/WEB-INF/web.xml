@@ -58,24 +58,16 @@
         <servlet-class>uts.isd.controller.SearchProductByCatOrLocaleServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CartController</servlet-name>
-        <servlet-class>uts.isd.controller.CartController</servlet-class>
+        <servlet-name>amendUserServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AmendUserServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>QuantityController</servlet-name>
-        <servlet-class>uts.isd.controller.QuantityController</servlet-class>
+        <servlet-name>cancelUserServlet</servlet-name>
+        <servlet-class>uts.isd.controller.CancelUserServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CheckOutController</servlet-name>
-        <servlet-class>uts.isd.controller.CheckOutController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>RemoveItemController</servlet-name>
-        <servlet-class>uts.isd.controller.RemoveItemController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>OrderNowController</servlet-name>
-        <servlet-class>uts.isd.controller.OrderNowController</servlet-class>
+        <servlet-name>CancelUserServlet</servlet-name>
+        <servlet-class>uts.isd.controller.CancelUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
@@ -100,26 +92,6 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/LogoutController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CartController</servlet-name>
-        <url-pattern>/CartController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>QuantityController</servlet-name>
-        <url-pattern>/quantity-inc-dec</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CheckOutController</servlet-name>
-        <url-pattern>/check-out</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RemoveItemController</servlet-name>
-        <url-pattern>/remove-cart</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>OrderNowController</servlet-name>
-        <url-pattern>/order-now</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterProductServlet</servlet-name>
@@ -152,6 +124,18 @@
     <servlet-mapping>
         <servlet-name>SearchProductByCatOrLocaleServlet</servlet-name>
         <url-pattern>/SearchProductByCatOrLocaleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>amendUserServlet</servlet-name>
+        <url-pattern>/amendUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cancelUserServlet</servlet-name>
+        <url-pattern>/cancelUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelUserServlet</servlet-name>
+        <url-pattern>/CancelUserServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

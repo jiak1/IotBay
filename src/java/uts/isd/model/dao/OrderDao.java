@@ -33,11 +33,12 @@ public class OrderDao {
     public boolean insertOrder(Order model) {
         boolean result = false;
         try {
-            query = "INSERT INTO IOTUSER.ORDERDB (USERID,O_QUANTITY,O_DATE) VALUES(?,?,?)";
+            query = "INSERT INTO IOTUSER.ORDERDB (USERID,O_QUANTITY,O_DATE,STATUS) VALUES(?,?,?,?)";
             pst = this.conn.prepareStatement(query);
             pst.setInt(1, model.getId());
             pst.setInt(2, model.getQuantity());
             pst.setString(3, model.getDate());
+            pst.setString(4, model.getStatus());
             pst.executeUpdate();
             result = true;
 
