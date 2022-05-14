@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 //import sun.text.normalizer.UBiDiProps;
 import uts.isd.model.Product;
 import uts.isd.model.dao.DBManager;
+import uts.isd.model.User;
 //import uts.isd.model.dao.ProductDBManager;
 
 /**
@@ -27,6 +28,7 @@ public class RegisterProductServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Validator validator = new Validator();
         //String productID = request.getParameter("productID");
+        String changes = "Changed:";
         String name = request.getParameter("name");
         String price = request.getParameter("price");
         String tax = request.getParameter("tax");
@@ -36,6 +38,7 @@ public class RegisterProductServlet extends HttpServlet {
         String category = request.getParameter("category");
         String location = request.getParameter("location");
         DBManager manager = (DBManager) session.getAttribute("manager");
+        User user = (User) session.getAttribute("user");
         validator.clear(session);
         
         if(!validator.validatePrice(price)){
@@ -70,13 +73,13 @@ public class RegisterProductServlet extends HttpServlet {
                     //prod_db.addProduct(name, price, tax, added_dt, expiry_dt, quantity, category, location);
                     manager.addProduct(name, Double.parseDouble(price), Double.parseDouble(tax), added_dt, expiry_dt, Integer.parseInt(quantity), category, location);
                     Product product = new Product(manager.fetchProductsByName(name).getProductID(), name, Double.parseDouble(price), Double.parseDouble(tax), added_dt, expiry_dt, Integer.parseInt(quantity), category, location);
+                    manager.addProductManagementLog(user.getID(), product.getProductID(), "Product registered with name:" + name + " price: " + price + " tax: " + tax + " quantity: " + quantity + " category: " + category + " location: " + location + "", "" + user.getEmail());
                     session.setAttribute("product", product);
                     request.getRequestDispatcher("/productAdded.jsp").include(request, response);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(RegisterProductServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
         }        
     }
 }

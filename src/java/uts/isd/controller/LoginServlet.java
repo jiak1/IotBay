@@ -8,6 +8,10 @@ package uts.isd.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +48,7 @@ public class LoginServlet extends HttpServlet {
                 
                 if (user != null) {
                     session.setAttribute("user", user);
+                    manager.addUserManagementLog(user.getID(), "User logged in", email);
                     request.getRequestDispatcher("/main.jsp").include(request, response);
                 } else {
                     //session.setAttribute("existErr", "User not in DB!");
