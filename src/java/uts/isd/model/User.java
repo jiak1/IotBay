@@ -11,12 +11,23 @@ public class User implements Serializable {
     private String address;
     private String email;
     private String password;
+    private boolean adminaccess;
     private int ID;
     
     public User() {
     }
 
-    public User(int ID, String name, String dob, String phone, String address, String email, String password) {
+    public User(String name, String dob, String phone, String address, String email, String password) {
+        this.name = name;
+        this.dob = dob;
+        this.phone = phone;
+        this.address = address;
+        this.email = email;
+        this.password = password;
+        this.adminaccess = false;
+    }
+
+    public User(int ID, String name, String dob, String phone, String address, String email, String password, boolean adminaccess) {
         this.ID = ID;
         this.name = name;
         this.dob = dob;
@@ -24,6 +35,7 @@ public class User implements Serializable {
         this.address = address;
         this.email = email;
         this.password = password;
+        this.adminaccess = adminaccess;
     }
 
     public int getID() {
@@ -80,5 +92,13 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean getAdminaccess() {
+        return adminaccess;
+    }
+
+    public void setAdminaccess(boolean adminaccess) {
+        this.adminaccess = adminaccess;
     }
 }

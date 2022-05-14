@@ -1,4 +1,3 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="uts.isd.model.*" %> 
 <!DOCTYPE html>
 <html>
@@ -10,15 +9,11 @@
         <jsp:include page="fragments/nav.jsp"></jsp:include>
         <%
             User user = (User)session.getAttribute("user");
+            String productid = (String) session.getAttribute("productid");
         %>
         <div class="container-sm text-center mt-5">
-            <h1 class="mb-3">User Details</h1>
-            <h2>Name: ${user.name}</h2>
-            <h2>Email: ${user.email}</h2>
-            <h2>Phone: ${user.phone}</h2>
-            <h2>Date Of Birth: ${user.dob}</h2>
-            <h2>Address: ${user.address}</h2>
-            <h2>admin: ${user.adminaccess}</h2>
+            <h1 class="mb-3">Product has been deleted!</h1>
+            <h2>Product ID: <%=(productid)%> </h2>
         </div>
         <%
         
@@ -32,7 +27,7 @@
         <div class="container-sm text-center mt-5">
             <!--<h1 class="mb-3">Add Products? !</h1> -->
             <a class="btn btn-primary" href="/IotBay/amendProductSearch.jsp" role="button">Amend Products</a>
-        </div> 
+        </div>
         <div class="container-sm text-center mt-5">
             <!--<h1 class="mb-3">Add Products? !</h1> -->
             <a class="btn btn-primary" href="/IotBay/deleteProductSearch.jsp" role="button">Delete Products</a>
