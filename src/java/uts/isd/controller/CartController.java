@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import uts.isd.model.OrderLineItem;
 import uts.isd.model.ShoppingCart;
 
 /**
@@ -23,6 +22,7 @@ import uts.isd.model.ShoppingCart;
  */
 @WebServlet("/add-tocart")
 public class CartController extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,9 +33,9 @@ public class CartController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try(PrintWriter out = response.getWriter()){
+        try ( PrintWriter out = response.getWriter()) {
             ArrayList<ShoppingCart> cartList = new ArrayList();//object arraylist
             int id = Integer.parseInt(request.getParameter("id"));
             ShoppingCart cart = new ShoppingCart();
@@ -43,30 +43,28 @@ public class CartController extends HttpServlet {
             cart.setCartQuantity(1);
             HttpSession session = request.getSession();
             ArrayList<ShoppingCart> cart_list = (ArrayList<ShoppingCart>) session.getAttribute("cart-list");
-            
-            if(cart_list==null){
-                cartList.add(cart);
-                session.setAttribute("cart-list",cartList);
-                response.sendRedirect("shop.jsp");
 
-            }
-            else{
+            if (cart_list == null) {
+                cartList.add(cart);
+                session.setAttribute("cart-list", cartList);
+                response.sendRedirect("cart.jsp");
+
+            } else {
                 cartList = cart_list;
                 boolean exist = false;
-                
-                for(ShoppingCart c:cartList){
-                    if(c.getId()==id){
-                        exist =true;
+
+                for (ShoppingCart c : cartList) {
+                    if (c.getId() == id) {
+                        exist = true;
                         out.println("<h3 style='color:crimson; text-align: center'>Item Already in Cart. <a href='cart.jsp'>GO to Cart Page</a></h3>");
                     }
                 }
                 if (!exist) {
                     cartList.add(cart);
-                    response.sendRedirect("shop.jsp");
+                    response.sendRedirect("cart.jsp");
                 }
             }
-                    
-            
+
         }
     }
 }
