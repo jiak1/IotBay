@@ -3,7 +3,7 @@ package uts.isd.model;
 import java.io.Serializable;
 
 public class OrderLineItem implements Serializable {
-
+    public int id;
     public double cost;
     public int quantity;
     public String name;
@@ -13,12 +13,21 @@ public class OrderLineItem implements Serializable {
     public OrderLineItem() {
     }
 
-    public OrderLineItem(double cost, int quantity, String name, String storageLocation, double tax) {
+    public OrderLineItem(int id,double cost, int quantity, String name, String storageLocation, double tax) {
+        this.id=id;
         this.cost = cost;
         this.quantity = quantity;
         this.name = name;
         this.storageLocation = storageLocation;
         this.tax = tax;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public double getCost() {
