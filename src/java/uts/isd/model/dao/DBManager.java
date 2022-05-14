@@ -23,6 +23,7 @@ public class DBManager {
     private Statement st;
     private PreparedStatement readSt;
     private PreparedStatement updateSt;
+    private PreparedStatement findUserSt;
     private PreparedStatement deleteSt;
     //private Statement stProd;
     private PreparedStatement readProdSt; //related to productDB
@@ -34,7 +35,8 @@ public class DBManager {
     private PreparedStatement readLogDatesSt; //related to LOGS DB - date search
     
     private String readQuery =  "SELECT * FROM IOTUSER.USERDB WHERE EMAIL=? AND PASSWORD=?";
-    private String updateQuery = "UPDATE IOTUSER.USERDB SET \"NAME\"=? ,PASSWORD=? ,PHONE=? WHERE USERID=?";
+    private String readByUseridQuery =  "SELECT * FROM IOTUSER.USERDB WHERE USERID=?";
+    private String updateQuery = "UPDATE IOTUSER.USERDB SET \"NAME\"=? , DOB=?, PHONE=?, ADDRESS=?, EMAIL=?, PASSWORD=? WHERE USERID=?";
     private String deleteQuery = "DELETE FROM IOTUSER.USERDB WHERE EMAIL=?";
     private String readProductByCatOrLocaleQuery = "SELECT * FROM IOTUSER.PRODUCTDB WHERE LOCATION=? AND CATEGORY=?"; //related to productDB
     private String readProductQuerySearch = "SELECT * FROM IOTUSER.PRODUCTDB WHERE \"NAME\" LIKE ?"; //related to productDB
@@ -52,6 +54,7 @@ public class DBManager {
        //stProd = conn.createStatement(); 
        readSt =  conn.prepareStatement(readQuery);
        updateSt = conn.prepareStatement(updateQuery);
+       findUserSt = conn.prepareStatement(readByUseridQuery);
        deleteSt = conn.prepareStatement(deleteQuery);
        updateProdSt = conn.prepareStatement(updateProduct);
        readProdSt = conn.prepareStatement(readProductQuerySearch);
@@ -86,6 +89,29 @@ public class DBManager {
         return null;
     }
     
+    public User fetchUser(int userid) throws SQLException {       
+        findUserSt.setInt(1, userid);
+        ResultSet rs = findUserSt.executeQuery();
+        
+        try{
+            while (rs.next()) {
+                int ID = Integer.parseInt(rs.getString(1));
+                String name = rs.getString(2);
+                String dob = rs.getString(3);
+                String phone = rs.getString(4);
+                String address = rs.getString(5);
+                String email = rs.getString(6);
+                String password = rs.getString(7);
+                boolean adminaccess = rs.getBoolean(8);
+                return new User(ID, name, dob, phone, address, email, password, adminaccess);
+                }
+        }
+        catch (Exception ex){
+             System.out.println(ex);   
+        }
+        return null;
+    }
+    
     //Check if a user exists in the database
     public boolean checkUser(String email, String password) throws SQLException {
         String fetch = "Select * from IOTUSER.USERDB where EMAIL = '" + email + "' and PASSWORD='" + password + "'";
@@ -109,15 +135,17 @@ public class DBManager {
     }
 
     //update a user details in the database   
-    public void updateUser(String name, String password, String phone, int ID) throws SQLException {       
-       //code for update-operation   
-       //"UPDATE IOTUSER.USERDB SET \"NAME\"=? ,PASSWORD=? ,PHONE=? WHERE USERID=?";
-        
-        updateSt.setString(1, name);
-        updateSt.setString(2, password);
-        updateSt.setString(3, phone);
-        updateSt.setString(4, Integer.toString(ID)); 
-        
+    public void updateUser(String name, String dob, String phone, String address, String email, String password, int ID) throws SQLException {       
+       User user = fetchUser(ID);
+       
+       //name.equals("") ? product.getProductName() :  name ) 
+        updateSt.setString(1, name.equals("") ? user.getName() : name);
+        updateSt.setString(2, dob.equals("") ? user.getDob(): dob);
+        updateSt.setString(3, phone.equals("") ? user.getPhone(): phone);
+        updateSt.setString(4, address.equals("") ? user.getAddress(): address);
+        updateSt.setString(5, email.equals("") ? user.getEmail(): email);
+        updateSt.setString(6, password.equals("") ? user.getPassword(): password);
+        updateSt.setString(7, Integer.toString(ID)); 
         int row = updateSt.executeUpdate();
         System.out.println("row "+row+" updated successfuly");
     }       

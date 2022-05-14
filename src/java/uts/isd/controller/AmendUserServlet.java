@@ -1,86 +1,81 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uts.isd.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import uts.isd.model.dao.DBManager;
+import uts.isd.model.User;
 
 /**
  *
  * @author AlexK
  */
 public class AmendUserServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+@Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet amendUserServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet amendUserServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        HttpSession session = request.getSession();
+        Validator validator = new Validator();
+        
+        User user = (User) session.getAttribute("user");
+        String name = request.getParameter("name");
+        String dob = request.getParameter("dob");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        DBManager manager = (DBManager) session.getAttribute("manager");
+        validator.clear(session);
+        
+        if(!name.equals("") && !validator.validateName(name)){
+            session.setAttribute("nameErr", "Error: name format");
+            request.getRequestDispatcher("amendUser.jsp").include(request, response);
+        } else if (!dob.equals("") && !validator.validateDate(dob)){
+            session.setAttribute("dateErr", "Error: yyyy-mm-dd needed");
+            request.getRequestDispatcher("amendUser.jsp").include(request, response);
+        } else if (!email.equals("") && !validator.validateEmail(email)){
+            session.setAttribute("emailErr", "Error: email needed");
+            request.getRequestDispatcher("amendUser.jsp").include(request, response);
+        }else if (!password.equals("") && !validator.validatePassword(password)){
+            session.setAttribute("passErr", "Error: invalid password entered");
+            request.getRequestDispatcher("amendUser.jsp").include(request, response);
+        } else {
+            try {
+                int userid = user.getID();
+                if (!name.equals("")){
+                    manager.addUserManagementLog(user.getID(), "User name " + user.getName() + "updated to " + name, "" + user.getEmail());
+                }
+                if (!password.equals("")){
+                    manager.addUserManagementLog(user.getID(), "User password updated", "" + user.getEmail());
+                }
+                if (!dob.equals("")){
+                    manager.addUserManagementLog(user.getID(), "User dob " + user.getDob()+ " updated to " + dob, "" + user.getEmail());
+                }
+                if (!address.equals("")){
+                    manager.addUserManagementLog(user.getID(), "User address " + user.getAddress()+ " updated to " + address, "" + user.getEmail());
+                }
+                if (!phone.equals("")){
+                    manager.addUserManagementLog(user.getID(), "User phone " + user.getPhone() + " updated to " + phone, "" + user.getEmail());
+                }
+                if (!email.equals("")){
+                    manager.addUserManagementLog(user.getID(), "User email " + user.getEmail() + " updated to " + email, "" + user.getEmail());
+                }
+                manager.updateUser(name, dob, phone, address, email, password, userid);
+                user = manager.fetchUser(userid);
+
+                session.setAttribute("user", user);
+                request.getRequestDispatcher("/userWasUpdated.jsp").include(request, response);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(RegisterProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }        
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
