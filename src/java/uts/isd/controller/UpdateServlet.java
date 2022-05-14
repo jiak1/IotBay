@@ -30,7 +30,8 @@ public class UpdateServlet extends HttpServlet {
         String address = request.getParameter("address");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        User user = new User (ID, name, dob, phone, address, email, password);
+        boolean adminaccess = Boolean.parseBoolean(request.getParameter("adminaccess"));
+        User user = new User (ID, name, dob, phone, address, email, password, adminaccess);
         DBManager manager = (DBManager) session.getAttribute("manager");
         try {
             if (user != null) {

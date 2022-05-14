@@ -35,7 +35,7 @@ public class EditServlet extends HttpServlet {
                 request.getRequestDispatcher("edit.jsp").include(request, response);
             } else {
                 session.setAttribute("existErr", "User does not exist");
-                request.getRequestDispatcher("/edit.jsp").include(request, response);
+                request.getRequestDispatcher("edit.jsp").include(request, response);
             }
         } catch (SQLException ex ) {
             Logger.getLogger(EditServlet.class.getName()).log(Level.SEVERE, null, ex);

@@ -25,6 +25,38 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>uts.isd.controller.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegisterProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.RegisterProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AmendProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AmendProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AmendProductSearchServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AmendProductSearchServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProductSearch</servlet-name>
+        <servlet-class>uts.isd.controller.DeleteProductSearch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.DeleteProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchtermProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchtermProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchProductByCatOrLocaleServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchProductByCatOrLocaleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
@@ -48,6 +80,38 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/LogoutController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterProductServlet</servlet-name>
+        <url-pattern>/RegisterProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AmendProductServlet</servlet-name>
+        <url-pattern>/AmendProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchProductServlet</servlet-name>
+        <url-pattern>/SearchProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AmendProductSearchServlet</servlet-name>
+        <url-pattern>/AmendProductSearchServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProductSearch</servlet-name>
+        <url-pattern>/DeleteProductSearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <url-pattern>/DeleteProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchtermProductServlet</servlet-name>
+        <url-pattern>/SearchtermProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchProductByCatOrLocaleServlet</servlet-name>
+        <url-pattern>/SearchProductByCatOrLocaleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

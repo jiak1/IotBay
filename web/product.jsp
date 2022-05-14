@@ -1,6 +1,6 @@
 <%-- 
-    Document   : shop
-    Created on : 07/05/2022, 11:17:54 PM
+    Document   : product
+    Created on : 10/05/2022, 3:06:30 PM
     Author     : AlexK
 --%>
 
@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>IOT Shopping Page</title>
+        <title>JSP Page</title>
     </head>
     <body>
-        <h1>GO SHOPPING! WEEE!</h1>
+        <h1>Hello World!</h1>
     </body>
 </html>
