@@ -40,18 +40,27 @@
 				<tr>
 					<th scope="col">Name</th>
 					<th scope="col">Phone</th>
-					<th scope="col">Account Status</th>
+					<th scope="col">Account Role</th>
+                                        <th scope="col">Active</th>
+                                        <th scope="col">Edit</th>
 				</tr>
 			</thead>
 			<tbody>
 			
 			<%
 			if(accounts != null){
-				for(User a: accounts){%>
+				for(User a: accounts){
+                                    String accountType = "Customer";
+                                    if(a.getAdminaccess()){
+                                            accountType = "Administrator";
+                                    }
+                        %>
 					<tr>
                                                 <td><%=a.getName()%></td>
 						<td><%=a.getPhone() %></td>
-                                                <td><%=a.getAdminaccess()%></td>
+                                                <td><%=accountType%></td>
+                                                <td></td>
+                                                <td><a class="link-dark" href="#"><i class="bi bi-pencil-square"></i></a></td>
 					</tr>
 				<%}
 			}
