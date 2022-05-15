@@ -35,39 +35,14 @@ public class AmendProductServlet extends HttpServlet {
         
         Product product = (Product) session.getAttribute("product");
         //String productID = request.getParameter("productID");
-        String changes = "Changed:";
         String name = request.getParameter("name");
-        if(!name.equals("")){
-            changes += " prod_name to "+ name ;
-        }
         String price = request.getParameter("price");
-        if(!price.equals("")){
-            changes += " price to "+ price;
-        }
         String tax = request.getParameter("tax");
-        if(!tax.equals("")){
-            changes += " tax to "+ tax;
-        }
         String added_dt = request.getParameter("added_dt");
-        if(!added_dt.equals("")){
-            changes += " added_dt to "+ added_dt;
-        }
         String expiry_dt = request.getParameter("expiry_dt");
-        if(!expiry_dt.equals("")){
-            changes += " expiry_dt to "+ expiry_dt;
-        }
         String quantity = request.getParameter("quantity");
-        if(!quantity.equals("")){
-            changes += " quantity to "+ quantity;
-        }
         String category = request.getParameter("category");
-        if(!category.equals("")){
-            changes += " category to "+ category;
-        }
         String location = request.getParameter("location");
-        if(!location.equals("")){
-            changes += " location to "+ location;
-        }
         User user = (User) session.getAttribute("user");
         DBManager manager = (DBManager) session.getAttribute("manager");
         validator.clear(session);
@@ -99,10 +74,35 @@ public class AmendProductServlet extends HttpServlet {
         }else {
             try {
                     //prod_db.addProduct(name, price, tax, added_dt, expiry_dt, quantity, category, location);
-                    manager.updateProduct(product, name, price, tax, added_dt, expiry_dt, quantity, category, location, product.getProductID());
+                    
                     int updatedId = product.getProductID();
                     product = manager.fetchProductsByID(updatedId);
-                    manager.addProductManagementLog(user.getID(), product.getProductID(), changes, "" + user.getEmail());
+                    if(!name.equals("")){
+                         manager.addProductManagementLog(user.getID(), product.getProductID(), "Update request to change Product name from " + product.getProductName()+ " to: " + name, "" + user.getEmail()); 
+                    }
+                    if(!price.equals("")){
+                        manager.addProductManagementLog(user.getID(), product.getProductID(), "Update request to change price from " + product.getProductPrice()+ " to: " + price, "" + user.getEmail()); 
+                    }
+                    if(!tax.equals("")){
+                        manager.addProductManagementLog(user.getID(), product.getProductID(), "Update request to change tax from " + product.getProductTax()+ " to: " + tax, "" + user.getEmail());
+                    }
+                    if(!added_dt.equals("")){
+                        manager.addProductManagementLog(user.getID(), product.getProductID(), "Update request to change added_dt from " + product.getProductAddedDate()+ " to: " + added_dt, "" + user.getEmail());    
+                    }
+                    if(!expiry_dt.equals("")){
+                        manager.addProductManagementLog(user.getID(), product.getProductID(), "Update request to change expiry_dt from " + product.getProductExpiryDate()+ " to: " + expiry_dt, "" + user.getEmail());   
+                    }
+                    if(!quantity.equals("")){
+                        manager.addProductManagementLog(user.getID(), product.getProductID(), "Update request to change quantity from " + product.getProductQuantity() + " to: " + quantity, "" + user.getEmail());  
+                    }
+                    if(!category.equals("")){
+                        manager.addProductManagementLog(user.getID(), product.getProductID(), "Update request to change category from " + product.getProductCategory() + " to: " + category, "" + user.getEmail()); 
+                    }
+                    if(!location.equals("")){
+                        manager.addProductManagementLog(user.getID(), product.getProductID(), "Update request to change location from " + product.getProductLocation() + " to: " + location, "" + user.getEmail());
+                    }
+                    manager.updateProduct(product, name, price, tax, added_dt, expiry_dt, quantity, category, location, product.getProductID());
+                    manager.addProductManagementLog(user.getID(), product.getProductID(), "Update(s) completed successfully for product", "" + user.getEmail());
                     session.setAttribute("product", product);
                     request.getRequestDispatcher("/productwasUpdated.jsp").include(request, response);
                 
