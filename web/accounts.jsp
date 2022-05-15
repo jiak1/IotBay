@@ -20,7 +20,7 @@
 <html>
 <head>
 <%@include file="/fragments/head.jsp"%>
-<title>E-Commerce Cart</title>
+<title>Accounts</title>
 </head>
 <body>
 	<%@include file="/fragments/nav.jsp"%>
@@ -40,18 +40,27 @@
 				<tr>
 					<th scope="col">Name</th>
 					<th scope="col">Phone</th>
-					<th scope="col">Account Status</th>
+					<th scope="col">Account Role</th>
+                                        <th scope="col">Active</th>
+                                        <th scope="col">Edit</th>
 				</tr>
 			</thead>
 			<tbody>
 			
 			<%
 			if(accounts != null){
-				for(User a: accounts){%>
+				for(User a: accounts){
+                                    String accountType = "Customer";
+                                    if(a.getAdminaccess()){
+                                            accountType = "Administrator";
+                                    }
+                        %>
 					<tr>
                                                 <td><%=a.getName()%></td>
 						<td><%=a.getPhone() %></td>
-                                                <td><%=a.getAdminaccess()%></td>
+                                                <td><%=accountType%></td>
+                                                <td><%if(a.isDeactivated()){%>No<%}else{%>Yes<%}%></td>
+                                                <td><a class="link-dark" href="/IotBay/EditAccountServlet?userid=<%=a.getID()%>"><i class="bi bi-pencil-square"></i></a></td>
 					</tr>
 				<%}
 			}
@@ -59,6 +68,7 @@
 			
 			</tbody>
 		</table>
+                <a href="/IotBay/editAccount.jsp"><button class="btn btn-success float-right">Create Account</button></a>
 	</div>
 	<%@include file="/fragments/footer.jsp"%>
 </body>
