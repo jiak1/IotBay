@@ -21,13 +21,13 @@
         <div class="center-form text-center mt-5">
             <h1 class="mb-3">Show All Your Activity Logs</h1>
             <!-- <form method="POST" action="/IotBay/welcome.jsp"> -->
-            <form method="POST" action="SearchUserLogsServlet">
+            <form method="POST" action="SearchUserLogServlet">
                 <button type="submit" name="getlogs" value="userlogs"  class="btn btn-primary">Get user logs</button>
               </form>
-                </div>
-            <div class="center-form text-center mt-5">
+                </div>   -->
+            <div class="center-form text-center mt-5">  
             <h1 class="mb-3">Search Logs By Start/End Date)</h1>
-            <form method="POST" action="SearchUserLogsServlet">
+            <form method="POST" action="SearchUserLogServlet">
                 <div class="mb-3">
                   <label for="startdate" class="form-label">Start date</label>
                   <input type="text" class="form-control" placeholder="<%=(dateErr != null ? dateErr : "Enter start date")%>" name="startdate" >
@@ -38,6 +38,6 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Search Logs</button>
               </form>
-        </div>
+        </div> -->
     </body>
 </html>
