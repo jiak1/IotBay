@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,8 +39,7 @@ public class DBManager {
     private String readProductQuerySearch = "SELECT * FROM IOTUSER.PRODUCTDB WHERE \"NAME\" LIKE ?"; //related to productDB
     private String updateProduct = "UPDATE IOTUSER.PRODUCTDB SET \"NAME\"=? , PRICE=?, TAX=?, ADDED_DT=?, EXPIRY_DT=?, QUANTITY=?, CATEGORY=?, LOCATION=? WHERE PRODUCTID=? "; //related to productDB
     private String deleteProduct = "DELETE FROM IOTUSER.PRODUCTDB WHERE PRODUCTID=?"; //related to productDB
-                                      //int logID, int userID, String details, String email, Date logDate, int productID
-    private String readLogByUserIDQuery = "SELECT LOGID, USERID, DETAILS, EMAIL, LOGDATE, PRODUCTID FROM IOTUSER.LOGS WHERE USERID=?"; //related to LOG DB
+    private String readLogByUserIDQuery = "SELECT * FROM IOTUSER.LOGS WHERE USERID=?"; //related to LOG DB
     private String readLogByUserIDANDDate = "SELECT * FROM IOTUSER.LOGS WHERE USERID=? AND LOGDATE>=? AND LOGDATE <=?"; //related to LOG DB
     private String updateUserLogs = "INSERT INTO IOTUSER.LOGS(USERID, DETAILS, EMAIL, LOGDATE) VALUES (?, ?, ?, ?)"; //related to LOG DB
     private String updateProductLogs = "INSERT INTO IOTUSER.LOGS(USERID, PRODUCTID, DETAILS, EMAIL, LOGDATE) VALUES (?, ?, ?, ?, ?)"; //related to LOG DB
@@ -417,27 +415,18 @@ public class DBManager {
             readLogSt.setInt(1, userID);
             ResultSet rs = readLogSt.executeQuery();
             ArrayList<Log> logs = new ArrayList();
-            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             while (rs.next()) {
-                int logID = rs.getInt(1);
-                //int logID, int userID, String details, String email, Date logDate, int productID
-                String details = rs.getString(3);
-                String email = rs.getString(4);
-                int productid; 
-                if((Integer)rs.getInt(6)==null) {
-                    productid = 0;
-                }else{
-                    productid = rs.getInt(6);
-                }
-                
+                int logID = Integer.parseInt(rs.getString(1));
+                int productID = Integer.parseInt(rs.getString(3));
+                String details = rs.getString(4);
+                String email = rs.getString(5);
                 try {
-                    Timestamp logdate = rs.getTimestamp(5);
-                                  //int logID, int userID, String details, String email, Date logDate, int productID
-                    logs.add(new Log(logID, userID, details, email, logdate, productid));
+                    Date logdate = sdf.parse(rs.getString(6));
+                    logs.add(new Log(logID, userID, productID, details, email, logdate));
                 } catch (Exception e) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    Date logdate = sdf.parse(rs.getString(5));
-                    logs.add(new Log(logID, userID, details, email, Timestamp.valueOf(logdate + " 00:00:01.123456" ) , productid));
+                    Date logdate = new java.util.Date();
+                    logs.add(new Log(logID, userID, productID, details, email, logdate));
                 }
                 return logs;
             }
@@ -457,22 +446,16 @@ public class DBManager {
         while (rs.next()) {
             try {
                 int logID = Integer.parseInt(rs.getString(1));
-                int productid = Integer.parseInt(rs.getString(3));
+                int productID = Integer.parseInt(rs.getString(3));
                 String details = rs.getString(4);
                 String email = rs.getString(5);
-                try {
-                    Timestamp logdate = rs.getTimestamp(5);
-                                  //int logID, int userID, String details, String email, Date logDate, int productID
-                    logs.add(new Log(logID, userID, details, email, logdate, productid));
-                } catch (Exception e) {
-                    sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    Date logdate = sdf.parse(rs.getString(5));
-                    logs.add(new Log(logID, userID, details, email, Timestamp.valueOf(logdate + " 00:00:01.123456" ) , productid));
-                }                
+                Date logdate = sdf.parse(rs.getString(6));
+                logs.add(new Log(logID, userID, productID, details, email, logdate));
             } catch (Exception e) {
                 System.out.println(e);
             }
         }
         return logs;
     }
+
 }

@@ -1,7 +1,6 @@
 package uts.isd.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class Log implements Serializable {
@@ -11,37 +10,27 @@ public class Log implements Serializable {
     public int productID;
     public String details;
     public String email;
-    public Timestamp logDate;
+    public Date logDate;
 
     public Log() {
     }
 
-    public Log(int userID, String details, String email, Timestamp logDate) {
+    public Log(int userID, String details, String email, Date logDate) {
         this.userID = userID;
         this.details = details;
         this.email = email;
         this.logDate = logDate;
     }
     
-    
-    public Log(int userID, int productID, String details, String email, Timestamp logDate) {
-        this.userID = userID;
-        this.productID = productID;
-        this.details = details;
-        this.email = email;
-        this.logDate = logDate;
-    }
-    
-    public Log(int logID, int userID, String details, String email, Timestamp logDate, int productID) {
-        this.logID = logID;
+    public Log(int userID, int productID, String details, String email, Date logDate) {
         this.userID = userID;
         this.productID = productID;
         this.details = details;
         this.email = email;
         this.logDate = logDate;
     }
-    
-    public Log(int logID, int userID, int productID, String details, String email, Timestamp logDate) {
+
+    public Log(int logID, int userID, int productID, String details, String email, Date logDate) {
         this.logID = logID;
         this.userID = userID;
         this.productID = productID;
@@ -82,11 +71,11 @@ public class Log implements Serializable {
         this.email = email;
     }
      
-    public Timestamp getLogDate() {
+    public Date getLogDate() {
         return logDate;
     }
 
-    public void setLogDate(Date Timestamp) {
+    public void setLogDate(Date logDate) {
         this.logDate = logDate;
     }
 }
