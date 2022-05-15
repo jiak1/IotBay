@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import uts.isd.model.Log;
@@ -33,10 +32,8 @@ public class DBManager {
     private PreparedStatement readLogSt; //related to LOGS DB
     private PreparedStatement updateUserLogSt; //related to LOGS DB
     private PreparedStatement updateProductLogSt; //related to LOGS DB
-    //private PreparedStatement readLogDatesSt; //related to LOGS DB - date search
-    
-    
-    
+    private PreparedStatement readLogDatesSt; //related to LOGS DB - date search
+
     private String readQuery = "SELECT * FROM IOTUSER.USERDB WHERE EMAIL=? AND PASSWORD=?";
     private String readByUseridQuery = "SELECT * FROM IOTUSER.USERDB WHERE USERID=?";
     private String updateQuery = "UPDATE IOTUSER.USERDB SET \"NAME\"=? , DOB=?, PHONE=?, ADDRESS=?, EMAIL=?, PASSWORD=? WHERE USERID=?";
@@ -457,20 +454,20 @@ public class DBManager {
                 //int logID, int userID, String details, String email, Date logDate, int productID
                 String details = rs.getString(3);
                 String email = rs.getString(4);
-                int productid = rs.getInt(6); 
-                
+                int productid = rs.getInt(6);
+
                 try {
                     Timestamp logdate = rs.getTimestamp(5);
-                                  //int logID, int userID, String details, String email, Date logDate, int productID
-                    
+                    //int logID, int userID, String details, String email, Date logDate, int productID
+
                     logs.add(new Log(logID, userID, details, email, logdate, productid));
                     //this is a test
                     //logs.add(new Log(logID, userID, details, email, Timestamp.valueOf("2022-12-10 00:00:01.123456"), productid));
                 } catch (Exception e) {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     Date logdate = sdf.parse(rs.getString(5));
-                    
-                    logs.add(new Log(logID, userID, details, email, Timestamp.valueOf(logdate + " 00:00:01.123456" ) , productid));
+
+                    logs.add(new Log(logID, userID, details, email, Timestamp.valueOf(logdate + " 00:00:01.123456"), productid));
                     //this is a test
                     //logs.add(new Log(logID, userID, details, email, Timestamp.valueOf( "2022-12-10 00:00:01.123456" ) , productid));
                 }
@@ -482,11 +479,9 @@ public class DBManager {
         return null;
     }
 
-    
     public ArrayList<Log> getUserLogsByDate(int userID, String startdate, String enddate) throws SQLException {                   //code for add-operation
-        
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-<<<<<<< HEAD
         //readLogDatesSt.setInt(1, userID);
         Timestamp start = Timestamp.valueOf(sdf.format(startdate) + " 00:00:01.123456 ");
         Timestamp end = Timestamp.valueOf(sdf.format(enddate) + " 23:59:59.123456 ");
@@ -496,16 +491,14 @@ public class DBManager {
         //ResultSet rs = readLogDatesSt.executeQuery();
         // Timestamp start = Timestamp.valueOf(sdf.format(startdate) + " 00:00:01.123456" );
         //readLogDatesSt.setTimestamp(3, Timestamp.valueOf(enddate + " 23:59:59.123456"));
-        
+
         //Timestamp end = Timestamp.valueOf(sdf.format(enddate) + " 23:59:59.123456 ");
-        String query = "SELECT LOGID, USERID, DETAILS, EMAIL, LOGDATE, PRODUCTID FROM IOTUSER.LOGS WHERE USERID="+userID+" AND LOGDATE BETWEEN  '" +start +"' AND '" + end + "';";
+        String query = "SELECT LOGID, USERID, DETAILS, EMAIL, LOGDATE, PRODUCTID FROM IOTUSER.LOGS WHERE USERID=" + userID + " AND LOGDATE BETWEEN  '" + start + "' AND '" + end + "';";
         ResultSet rs = st.executeQuery(query);
-=======
-        readLogDatesSt.setInt(1, userID);
+        /*readLogDatesSt.setInt(1, userID);
         readLogDatesSt.setTimestamp(2, Timestamp.valueOf(startdate + " 00:00:01.123456"));
-        readLogDatesSt.setTimestamp(3, Timestamp.valueOf(enddate + " 23:59:59.123456"));
-        ResultSet rs = readLogDatesSt.executeQuery();
->>>>>>> d580226bbe0b84423391e989bbd70237c91ab4f4
+        readLogDatesSt.setTimestamp(3, Timestamp.valueOf(enddate + " 23:59:59.123456"));*/
+        //ResultSet rs = readLogDatesSt.executeQuery();
         ArrayList<Log> logs = new ArrayList();
         while (rs.next()) {
             try {
@@ -520,8 +513,8 @@ public class DBManager {
                 } catch (Exception e) {
                     sdf = new SimpleDateFormat("yyyy-MM-dd");
                     Date logdate = sdf.parse(rs.getString(5));
-                    logs.add(new Log(logID, userID, details, email, Timestamp.valueOf(logdate + " 00:00:01.123456" ) , productid));
-                }                
+                    logs.add(new Log(logID, userID, details, email, Timestamp.valueOf(logdate + " 00:00:01.123456"), productid));
+                }
             } catch (Exception e) {
                 System.out.println(e);
             }
