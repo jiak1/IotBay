@@ -37,7 +37,7 @@ public class OrderItemDao {
             rs = pst.executeQuery();
             while (rs.next()) {
                 OrderLineItem row = new OrderLineItem();
-                row.setId(rs.getInt("orderid"));
+                row.setId(rs.getInt("productid"));
                 row.setCost(rs.getDouble("cost"));
                 row.setName(rs.getString("name"));
                 row.setQuantity(rs.getInt("qty"));
@@ -62,7 +62,7 @@ public class OrderItemDao {
                     rs = pst.executeQuery();
                     while (rs.next()) {
                         ShoppingCart row = new ShoppingCart();
-                        row.setId(rs.getInt("orderid"));
+                        row.setId(rs.getInt("productid"));
                         row.setQuantity(rs.getInt("qty"));
                         row.setName(rs.getString("name"));
                         row.setStorageLocation(rs.getString("location"));
@@ -115,7 +115,7 @@ public class OrderItemDao {
 
             while (rs.next()) {
                 row = new OrderLineItem();
-                row.setId(rs.getInt("id"));
+                row.setId(rs.getInt("orderid"));
                 row.setName(rs.getString("name"));
                 row.setStorageLocation(rs.getString("location"));
                 row.setCost(rs.getDouble("cost"));

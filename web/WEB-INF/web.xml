@@ -77,6 +77,10 @@
         <servlet-name>AccountsServlet</servlet-name>
         <servlet-class>uts.isd.controller.AccountsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CancelOrderController</servlet-name>
+        <servlet-class>uts.isd.controller.CancelOrderController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
@@ -152,6 +156,10 @@
     <servlet-mapping>
         <servlet-name>AccountsServlet</servlet-name>
         <url-pattern>/AccountsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelOrderController</servlet-name>
+        <url-pattern>/cancelorder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
