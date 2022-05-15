@@ -6,26 +6,22 @@
 package uts.isd.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import uts.isd.model.dao.DBManager;
 import uts.isd.model.*;
+import uts.isd.model.dao.DBManager;
+
 /**
  *
  * @author AlexK
  */
 public class LoginServlet extends HttpServlet {
-    
-    @Override 
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -35,8 +31,8 @@ public class LoginServlet extends HttpServlet {
         DBManager manager = (DBManager) session.getAttribute("manager");
         User user = null;
         validator.clear(session);
-        
-        if (!validator.validateEmail(email) ) {
+
+        if (!validator.validateEmail(email)) {
             session.setAttribute("emailErr", "Error: Bad format");
             request.getRequestDispatcher("/login.jsp").include(request, response);
         } else if (!validator.validatePassword(password)) {
@@ -45,8 +41,8 @@ public class LoginServlet extends HttpServlet {
         } else {
             try {
                 user = manager.findUser(email, password);
-                
-                if (user != null) {
+
+                if (user != null && user.isDeactivated() == false) {
                     session.setAttribute("user", user);
                     manager.addUserManagementLog(user.getID(), "User logged in", email);
                     request.getRequestDispatcher("/main.jsp").include(request, response);
@@ -57,7 +53,7 @@ public class LoginServlet extends HttpServlet {
                 }
             } catch (SQLException | NullPointerException ex) {
                 System.out.println(ex.getMessage() == null ? "Student does not exist" : "welcome");
-            } 
+            }
         }
     }
 }
