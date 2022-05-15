@@ -27,9 +27,10 @@
             <li class="nav-item"><a href="cart.jsp" class="nav-link link-dark px-2">Cart <span class="badge badge-danger"><%=cart_list_size%></span> </a></li>
            <!-- <li class="nav-item font-weight-bold"><a href="/IotBay/logout.jsp" class="nav-link link-dark px-2">Logout</a></li>  -->
             <li class="nav-item"><a href="/IotBay/amendUserServlet" class="nav-link link-dark px-2">Amend Details</a></li> 
+            <li class="nav-item"><a href="/IotBay/searchUserLogs.jsp" class="nav-link link-dark px-2">View Logs</a></li> 
             <li class="nav-item"><a href="/IotBay/confirmCancelUser.jsp" class="nav-link link-dark px-2">Cancel Account</a></li> 
-           <li class="nav-item"><a href="LogoutController" class="nav-link link-dark px-2">Logout</a></li> 
-           <li class="nav-item"><a href="/IotBay/AccountsServlet" class="nav-link link-dark px-2">Accounts</a></li> 
+            <li class="nav-item"><a href="LogoutController" class="nav-link link-dark px-2">Logout</a></li> 
+            <li class="nav-item"><a href="/IotBay/AccountsServlet" class="nav-link link-dark px-2">Accounts</a></li> 
         <% } %>
       </ul>
     </div>
