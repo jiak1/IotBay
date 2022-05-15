@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -409,9 +410,9 @@ public class DBManager {
     }
 
     //Search log for user activities
-    public ArrayList<Log> getUserLogs(String userID) throws SQLException {                   //code for add-operation
+    public ArrayList<Log> getUserLogs(int userID) throws SQLException {                   //code for add-operation
         try {
-            readLogSt.setString(1, userID);
+            readLogSt.setInt(1, userID);
             ResultSet rs = readLogSt.executeQuery();
             ArrayList<Log> logs = new ArrayList();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -422,10 +423,10 @@ public class DBManager {
                 String email = rs.getString(5);
                 try {
                     Date logdate = sdf.parse(rs.getString(6));
-                    logs.add(new Log(logID, Integer.parseInt(userID), productID, details, email, logdate));
+                    logs.add(new Log(logID, userID, productID, details, email, logdate));
                 } catch (Exception e) {
                     Date logdate = new java.util.Date();
-                    logs.add(new Log(logID, Integer.parseInt(userID), productID, details, email, logdate));
+                    logs.add(new Log(logID, userID, productID, details, email, logdate));
                 }
                 return logs;
             }
@@ -435,11 +436,11 @@ public class DBManager {
         return null;
     }
 
-    public ArrayList<Log> getUserLogsByDate(String userID, String startdate, String enddate) throws SQLException {                   //code for add-operation
-        readLogDatesSt.setString(1, userID);
-        readLogDatesSt.setString(2, startdate);
-        readLogDatesSt.setString(3, startdate);
+    public ArrayList<Log> getUserLogsByDate(int userID, String startdate, String enddate) throws SQLException {                   //code for add-operation
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        readLogDatesSt.setInt(1, userID);
+        readLogDatesSt.setTimestamp(2, Timestamp.valueOf(startdate + " 00:00:01.123456" ));
+        readLogDatesSt.setTimestamp(3, Timestamp.valueOf(enddate + " 23:59:59.123456"));
         ResultSet rs = readLogDatesSt.executeQuery();
         ArrayList<Log> logs = new ArrayList();
         while (rs.next()) {
@@ -449,7 +450,7 @@ public class DBManager {
                 String details = rs.getString(4);
                 String email = rs.getString(5);
                 Date logdate = sdf.parse(rs.getString(6));
-                logs.add(new Log(logID, Integer.parseInt(userID), productID, details, email, logdate));
+                logs.add(new Log(logID, userID, productID, details, email, logdate));
             } catch (Exception e) {
                 System.out.println(e);
             }
