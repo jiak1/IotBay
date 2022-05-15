@@ -20,7 +20,7 @@
 <html>
 <head>
 <%@include file="/fragments/head.jsp"%>
-<title>E-Commerce Cart</title>
+<title>Accounts</title>
 </head>
 <body>
 	<%@include file="/fragments/nav.jsp"%>
@@ -59,8 +59,8 @@
                                                 <td><%=a.getName()%></td>
 						<td><%=a.getPhone() %></td>
                                                 <td><%=accountType%></td>
-                                                <td></td>
-                                                <td><a class="link-dark" href="#"><i class="bi bi-pencil-square"></i></a></td>
+                                                <td><%if(a.isDeactivated()){%>No<%}else{%>Yes<%}%></td>
+                                                <td><a class="link-dark" href="/IotBay/EditAccountServlet?userid=<%=a.getID()%>"><i class="bi bi-pencil-square"></i></a></td>
 					</tr>
 				<%}
 			}
