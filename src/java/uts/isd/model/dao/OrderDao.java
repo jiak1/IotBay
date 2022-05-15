@@ -51,14 +51,14 @@ public class OrderDao {
     public List<Order> userOrders() {
         List<Order> list = new ArrayList<>();
         try {
-            query = "SELECT *FROM IOTUSER.ORDERDB WHERE ORDERID =? ";
+            query = "SELECT *FROM IOTUSER.ORDERDB WHERE USERID =? ";
             pst = this.conn.prepareStatement(query);
             rs = pst.executeQuery();
 
             while (rs.next()) {
                 Order order = new Order();
                 OrderItemDao oDao = new OrderItemDao(this.conn);
-                int uId = rs.getInt("ORDERID");
+                int uId = rs.getInt("USERID");
 
                 OrderLineItem pd = oDao.getSingleProduct(uId);
                 order.setId(pd.getId());
@@ -82,12 +82,13 @@ public class OrderDao {
     public List<Order> getAllOrders() throws SQLException {
         List<Order> products = new ArrayList<Order>();
         try {
-            query = "select * from ORDERDB ORDER BY O_DATE DESC";
+            query = "SELECT * FROM ORDERDB WHERE O_DATE IS NOT NULL ORDER BY O_DATE DESC";
             pst = this.conn.prepareStatement(query);
             rs = pst.executeQuery();
             while (rs.next()) {
                 Order order = new Order();
-                order.setStatus(rs.getString("STATUS"));
+                order.setUserId(rs.getInt("USERID"));
+                order.setStatus("Processing");
                 order.setDate(rs.getString("O_DATE"));
                 order.setQuantity(rs.getInt("O_QUANTITY"));
                 products.add(order);
@@ -98,6 +99,18 @@ public class OrderDao {
         }
         return products;
 
+    }
+    
+    public void cancelOrder(int id){
+        try{
+            query = "DELETE FROM ORDERDB WHERE USERID=?";
+            pst=this.conn.prepareStatement(query);
+            pst.setInt(1,id);
+            pst.execute();
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

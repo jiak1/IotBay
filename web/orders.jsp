@@ -33,6 +33,7 @@
 					<th scope="col">Date</th>
 					<th scope="col">Quantity</th>
 					<th scope="col">Status</th>
+                                        <th scope="col">Cancel</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -44,6 +45,7 @@
                                                 <td><%=o.getDate()%></td>
 						<td><%=o.getQuantity() %></td>
                                                 <td><%=o.getStatus()%></td>
+                                                <td><a class="btn btn-sm btn-danger" href="cancelorder?id=<%=o.getUserId()%>">Cancel Order</a></td>
 					</tr>
 				<%}
 			}
