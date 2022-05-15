@@ -1,7 +1,6 @@
 package uts.isd.model;
 
 import java.io.Serializable;
-import java.util.Random;
 
 public class User implements Serializable {
 
@@ -12,9 +11,19 @@ public class User implements Serializable {
     private String email;
     private String password;
     private boolean adminaccess;
+    private boolean deactivated;
+
     private int ID;
-    
+
     public User() {
+        this.name = "";
+        this.dob = "";
+        this.phone = "";
+        this.address = "";
+        this.email = "";
+        this.password = "";
+        this.adminaccess = false;
+        this.deactivated = false;
     }
 
     public User(String name, String dob, String phone, String address, String email, String password) {
@@ -25,6 +34,7 @@ public class User implements Serializable {
         this.email = email;
         this.password = password;
         this.adminaccess = false;
+        this.deactivated = false;
     }
 
     public User(int ID, String name, String dob, String phone, String address, String email, String password, boolean adminaccess) {
@@ -38,14 +48,34 @@ public class User implements Serializable {
         this.adminaccess = adminaccess;
     }
 
+    public User(int ID, String name, String dob, String phone, String address, String email, String password, boolean adminaccess, boolean deactivated) {
+        this.ID = ID;
+        this.name = name;
+        this.dob = dob;
+        this.phone = phone;
+        this.address = address;
+        this.email = email;
+        this.password = password;
+        this.adminaccess = adminaccess;
+        this.deactivated = deactivated;
+    }
+
+    public boolean isDeactivated() {
+        return deactivated;
+    }
+
+    public void setDeactivated(boolean deactivated) {
+        this.deactivated = deactivated;
+    }
+
     public int getID() {
         return ID;
     }
-        
+
     public void setID(int ID) {
         this.ID = ID;
     }
-        
+
     public String getName() {
         return name;
     }

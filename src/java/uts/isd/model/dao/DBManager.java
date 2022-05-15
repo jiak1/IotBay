@@ -2,6 +2,7 @@ package uts.isd.model.dao;
 
 //import uts.isd.model.Account;
 //import java.sql.*;
+import com.sun.media.jfxmedia.logging.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,8 +22,10 @@ public class DBManager {
     private Statement st;
     private PreparedStatement readSt;
     private PreparedStatement updateSt;
+    private PreparedStatement updateUserSt;
     private PreparedStatement findUserSt;
     private PreparedStatement deleteSt;
+    private PreparedStatement deleteUserIDSt;
     //private Statement stProd;
     private PreparedStatement readProdSt; //related to productDB
     private PreparedStatement updateProdSt; //related to productDB
@@ -37,7 +40,9 @@ public class DBManager {
     private String readQuery = "SELECT * FROM IOTUSER.USERDB WHERE EMAIL=? AND PASSWORD=?";
     private String readByUseridQuery = "SELECT * FROM IOTUSER.USERDB WHERE USERID=?";
     private String updateQuery = "UPDATE IOTUSER.USERDB SET \"NAME\"=? , DOB=?, PHONE=?, ADDRESS=?, EMAIL=?, PASSWORD=? WHERE USERID=?";
+    private String updateAccountStatusQuery = "UPDATE IOTUSER.USERDB SET \"ADMINACCESS\"=? , DEACTIVATED=? WHERE USERID=?";
     private String deleteQuery = "DELETE FROM IOTUSER.USERDB WHERE EMAIL=?";
+    private String deleteUserIDQuery = "DELETE FROM IOTUSER.USERDB WHERE USERID=?";
     private String readProductByCatOrLocaleQuery = "SELECT * FROM IOTUSER.PRODUCTDB WHERE LOCATION=? AND CATEGORY=?"; //related to productDB
     private String readProductQuerySearch = "SELECT * FROM IOTUSER.PRODUCTDB WHERE \"NAME\" LIKE ?"; //related to productDB
     private String updateProduct = "UPDATE IOTUSER.PRODUCTDB SET \"NAME\"=? , PRICE=?, TAX=?, ADDED_DT=?, EXPIRY_DT=?, QUANTITY=?, CATEGORY=?, LOCATION=? WHERE PRODUCTID=? "; //related to productDB
@@ -53,8 +58,10 @@ public class DBManager {
         //stProd = conn.createStatement();
         readSt = conn.prepareStatement(readQuery);
         updateSt = conn.prepareStatement(updateQuery);
+        updateUserSt = conn.prepareStatement(updateAccountStatusQuery);
         findUserSt = conn.prepareStatement(readByUseridQuery);
         deleteSt = conn.prepareStatement(deleteQuery);
+        deleteUserIDSt = conn.prepareStatement(deleteUserIDQuery);
         updateProdSt = conn.prepareStatement(updateProduct);
         readProdSt = conn.prepareStatement(readProductQuerySearch);
         deleteProdSt = conn.prepareStatement(deleteProduct);
@@ -81,8 +88,9 @@ public class DBManager {
                 String phone = rs.getString(4);
                 String address = rs.getString(5);
                 boolean adminaccess = rs.getBoolean(8);
+                boolean deactivated = rs.getBoolean(9);
 
-                return new User(ID, name, dob, phone, address, email, password, adminaccess);
+                return new User(ID, name, dob, phone, address, email, password, adminaccess, deactivated);
             }
         }
         return null;
@@ -102,7 +110,8 @@ public class DBManager {
                 String email = rs.getString(6);
                 String password = rs.getString(7);
                 boolean adminaccess = rs.getBoolean(8);
-                return new User(ID, name, dob, phone, address, email, password, adminaccess);
+                boolean deactivated = rs.getBoolean(9);
+                return new User(ID, name, dob, phone, address, email, password, adminaccess, deactivated);
             }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -149,12 +158,34 @@ public class DBManager {
         System.out.println("row " + row + " updated successfuly");
     }
 
+    //update a user details in the database
+    public void updateUserStatus(int ID, boolean admin, boolean deactivated) throws SQLException {
+        updateUserSt.setBoolean(1, admin);
+        updateUserSt.setBoolean(2, deactivated);
+        updateUserSt.setString(3, Integer.toString(ID));
+        int row = updateUserSt.executeUpdate();
+        System.out.println("row " + row + " updated successfuly");
+    }
+
     //delete a user from the database
     public void deleteUser(String email) throws SQLException {
         //code for delete-operation
         try {
             deleteSt.setString(1, email);
             int row = deleteSt.executeUpdate();
+            System.out.println("row " + row + " deleted successfuly");
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+    }
+
+    //delete a user from the database
+    public void deleteUser(int userID) throws SQLException {
+        //code for delete-operation
+        try {
+            deleteUserIDSt.setInt(1, userID);
+            int row = deleteUserIDSt.executeUpdate();
             System.out.println("row " + row + " deleted successfuly");
         } catch (Exception ex) {
             System.out.println(ex);
@@ -177,7 +208,8 @@ public class DBManager {
             String email = rs.getString(6);
             String password = rs.getString(7);
             boolean adminaccess = rs.getBoolean(8);
-            users.add(new User(ID, name, dob, phone, address, email, password, adminaccess));
+            boolean deactivated = rs.getBoolean(9);
+            users.add(new User(ID, name, dob, phone, address, email, password, adminaccess, deactivated));
         }
         return users;
     }
@@ -386,6 +418,7 @@ public class DBManager {
             updateUserLogSt.setString(2, details);
             updateUserLogSt.setString(3, email);
             updateUserLogSt.setTimestamp(4, new java.sql.Timestamp(new java.util.Date().getTime()));
+            Logger.logMsg(0, updateUserLogSt.toString());
             updateUserLogSt.executeUpdate();
         } catch (Exception ex) {
             {
@@ -453,6 +486,7 @@ public class DBManager {
     public ArrayList<Log> getUserLogsByDate(int userID, String startdate, String enddate) throws SQLException {                   //code for add-operation
         
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+<<<<<<< HEAD
         //readLogDatesSt.setInt(1, userID);
         Timestamp start = Timestamp.valueOf(sdf.format(startdate) + " 00:00:01.123456 ");
         Timestamp end = Timestamp.valueOf(sdf.format(enddate) + " 23:59:59.123456 ");
@@ -466,6 +500,12 @@ public class DBManager {
         //Timestamp end = Timestamp.valueOf(sdf.format(enddate) + " 23:59:59.123456 ");
         String query = "SELECT LOGID, USERID, DETAILS, EMAIL, LOGDATE, PRODUCTID FROM IOTUSER.LOGS WHERE USERID="+userID+" AND LOGDATE BETWEEN  '" +start +"' AND '" + end + "';";
         ResultSet rs = st.executeQuery(query);
+=======
+        readLogDatesSt.setInt(1, userID);
+        readLogDatesSt.setTimestamp(2, Timestamp.valueOf(startdate + " 00:00:01.123456"));
+        readLogDatesSt.setTimestamp(3, Timestamp.valueOf(enddate + " 23:59:59.123456"));
+        ResultSet rs = readLogDatesSt.executeQuery();
+>>>>>>> d580226bbe0b84423391e989bbd70237c91ab4f4
         ArrayList<Log> logs = new ArrayList();
         while (rs.next()) {
             try {

@@ -82,9 +82,27 @@
         <servlet-class>uts.isd.controller.CancelOrderController</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>SearchUserLogServlet</servlet-name>
         <servlet-class>uts.isd.controller.SearchUserLogServlet</servlet-class>
     </servlet>
+=======
+        <servlet-name>SearchUserLogsServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchUserLogsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditAccountServlet</servlet-name>
+        <servlet-class>uts.isd.controller.EditAccountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <servlet-class>uts.isd.controller.DeleteAccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchUserLogsServlet</servlet-name>
+        <url-pattern>/SearchUserLogsServlet</url-pattern>
+    </servlet-mapping>
+>>>>>>> d580226bbe0b84423391e989bbd70237c91ab4f4
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
@@ -166,8 +184,17 @@
         <url-pattern>/cancelorder</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>SearchUserLogServlet</servlet-name>
         <url-pattern>/SearchUserLogServlet</url-pattern>
+=======
+        <servlet-name>EditAccountServlet</servlet-name>
+        <url-pattern>/EditAccountServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <url-pattern>/DeleteAccountServlet</url-pattern>
+>>>>>>> d580226bbe0b84423391e989bbd70237c91ab4f4
     </servlet-mapping>
     <session-config>
         <session-timeout>
