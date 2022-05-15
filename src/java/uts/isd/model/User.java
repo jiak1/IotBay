@@ -16,6 +16,14 @@ public class User implements Serializable {
     private int ID;
 
     public User() {
+        this.name = "";
+        this.dob = "";
+        this.phone = "";
+        this.address = "";
+        this.email = "";
+        this.password = "";
+        this.adminaccess = false;
+        this.deactivated = false;
     }
 
     public User(String name, String dob, String phone, String address, String email, String password) {

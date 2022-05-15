@@ -24,6 +24,7 @@ public class DBManager {
     private PreparedStatement updateUserSt;
     private PreparedStatement findUserSt;
     private PreparedStatement deleteSt;
+    private PreparedStatement deleteUserIDSt;
     //private Statement stProd;
     private PreparedStatement readProdSt; //related to productDB
     private PreparedStatement updateProdSt; //related to productDB
@@ -38,6 +39,7 @@ public class DBManager {
     private String updateQuery = "UPDATE IOTUSER.USERDB SET \"NAME\"=? , DOB=?, PHONE=?, ADDRESS=?, EMAIL=?, PASSWORD=? WHERE USERID=?";
     private String updateAccountStatusQuery = "UPDATE IOTUSER.USERDB SET \"ADMINACCESS\"=? , DEACTIVATED=? WHERE USERID=?";
     private String deleteQuery = "DELETE FROM IOTUSER.USERDB WHERE EMAIL=?";
+    private String deleteUserIDQuery = "DELETE FROM IOTUSER.USERDB WHERE USERID=?";
     private String readProductByCatOrLocaleQuery = "SELECT * FROM IOTUSER.PRODUCTDB WHERE LOCATION=? AND CATEGORY=?"; //related to productDB
     private String readProductQuerySearch = "SELECT * FROM IOTUSER.PRODUCTDB WHERE \"NAME\" LIKE ?"; //related to productDB
     private String updateProduct = "UPDATE IOTUSER.PRODUCTDB SET \"NAME\"=? , PRICE=?, TAX=?, ADDED_DT=?, EXPIRY_DT=?, QUANTITY=?, CATEGORY=?, LOCATION=? WHERE PRODUCTID=? "; //related to productDB
@@ -56,6 +58,7 @@ public class DBManager {
         updateUserSt = conn.prepareStatement(updateAccountStatusQuery);
         findUserSt = conn.prepareStatement(readByUseridQuery);
         deleteSt = conn.prepareStatement(deleteQuery);
+        deleteUserIDSt = conn.prepareStatement(deleteUserIDQuery);
         updateProdSt = conn.prepareStatement(updateProduct);
         readProdSt = conn.prepareStatement(readProductQuerySearch);
         deleteProdSt = conn.prepareStatement(deleteProduct);
@@ -167,6 +170,19 @@ public class DBManager {
         try {
             deleteSt.setString(1, email);
             int row = deleteSt.executeUpdate();
+            System.out.println("row " + row + " deleted successfuly");
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+    }
+
+    //delete a user from the database
+    public void deleteUser(int userID) throws SQLException {
+        //code for delete-operation
+        try {
+            deleteUserIDSt.setInt(1, userID);
+            int row = deleteUserIDSt.executeUpdate();
             System.out.println("row " + row + " deleted successfuly");
         } catch (Exception ex) {
             System.out.println(ex);

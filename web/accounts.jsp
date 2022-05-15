@@ -68,6 +68,7 @@
 			
 			</tbody>
 		</table>
+                <a href="/IotBay/editAccount.jsp"><button class="btn btn-success float-right">Create Account</button></a>
 	</div>
 	<%@include file="/fragments/footer.jsp"%>
 </body>

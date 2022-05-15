@@ -57,6 +57,7 @@ public class EditAccountServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Validator validator = new Validator();
         int userID = Integer.parseInt(request.getParameter("userid"));
+
         String name = request.getParameter("name");
         String dob = request.getParameter("dob");
         String phone = request.getParameter("phone");
@@ -77,7 +78,12 @@ public class EditAccountServlet extends HttpServlet {
             session.setAttribute("formErr", "Error: passwd format");
         } else {
             try {
-                manager.updateUser(name, dob, phone, address, email, password, userID);
+                if (userID == 0) {
+                    manager.addUser(name, dob, phone, address, email, password);
+                    userID = manager.findUser(email, password).getID();
+                } else {
+                    manager.updateUser(name, dob, phone, address, email, password, userID);
+                }
                 manager.updateUserStatus(userID, adminaccess, deactivated);
                 //manager.addUserManagementLog(user.getID(), "User updated - name:" + name + " email: " + email + " dob: " + dob + " address: " + address + " phone: " + phone, email);
             } catch (SQLException ex) {

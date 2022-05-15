@@ -89,6 +89,10 @@
         <servlet-name>EditAccountServlet</servlet-name>
         <servlet-class>uts.isd.controller.EditAccountServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <servlet-class>uts.isd.controller.DeleteAccountServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SearchUserLogsServlet</servlet-name>
         <url-pattern>/SearchUserLogsServlet</url-pattern>
@@ -176,6 +180,10 @@
     <servlet-mapping>
         <servlet-name>EditAccountServlet</servlet-name>
         <url-pattern>/EditAccountServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <url-pattern>/DeleteAccountServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -5,8 +5,10 @@
 <%@page import="uts.isd.model.OrderLineItem"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    User a = (User)request.getAttribute("account");
-    
+    User a = new User();
+    if(request.getAttribute("account") != null){
+        a = (User)request.getAttribute("account");
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -78,8 +80,12 @@
                         </div>
                         <div class="row mb-3">
                           <div class="col-sm-10 offset-sm-2">
-                              <button type="submit" class="btn btn-success">Update</button>
-                              <button type="submit" class="btn btn-danger">Delete</button>
+                              <% if(a.getEmail().equals("")) {%>
+                                <button type="submit" class="btn btn-success">Create</button>
+                              <% } else {%>
+                                <button type="submit" class="btn btn-success">Update</button>
+                                <a href="/IotBay/DeleteAccountServlet?userid=<%=a.getID()%>" class="btn btn-danger">Delete</a>
+                              <% }%>
                           </div>
                         </div>
                         
