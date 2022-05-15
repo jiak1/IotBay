@@ -15,7 +15,6 @@
             String nameErr = (String) session.getAttribute("nameErr");
             String dateErr = (String) session.getAttribute("dateErr");
         %>
-        h1 class="mb-3">Amend User Details</h1>
         
         <div class="center-form text-center mt-5">
             <h1 class="mb-3">Amend User ID: ${user.ID}) ONLY COMPLETE FIELDS BEING AMENDED!</h1>

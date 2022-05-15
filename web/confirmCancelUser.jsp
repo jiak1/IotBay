@@ -24,8 +24,8 @@
             <h2>admin: ${user.adminaccess}</h2>
         </div>
         
-        <form method="POST" action="CancelUserServlet"("user/cancel", request) >
-            <button type="submit" name="doCancel" value="Cancel" class="btn btn-primary">Cancel Your Account</button>
+        <form method="POST" action="CancelUserServlet"("user/cancel", request) class="text-center">
+            <button type="submit" name="doCancel" value="Cancel" class="btn btn-danger mt-4">Cancel Your Account</button>
         </form>
         <%
             }

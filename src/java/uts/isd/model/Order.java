@@ -4,6 +4,15 @@ public class Order extends OrderLineItem{
     public String status;
     public int orderId;
     public String date;
+    public int userId;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public String getStatus() {
         return status;
