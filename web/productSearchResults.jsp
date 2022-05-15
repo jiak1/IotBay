@@ -42,7 +42,7 @@
                                                 <img src=<%= image %> height="100" width="100" />
 						<h5 class="card-title"><%= productname%></h5></a>
 						<h6 class="price">Price: $<%= price%></h6>
-						<h6 class="category">Location: $<%= location%></h6>
+						<h6 class="category">Location: <%= location%></h6>
 						<div class="mt-3 d-flex justify-content-between">
 							<a class="btn btn-dark" href="add-tocart?id=<%=productid%>">Add to Cart</a> <a
 								class="btn btn-primary" href="order-now?quantity=1">Buy Now</a>

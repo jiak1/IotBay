@@ -14,7 +14,7 @@ CREATE TABLE USERDB(
 
 INSERT INTO USERDB ("NAME",DOB,PHONE,ADDRESS,EMAIL,PASSWORD,ADMINACCESS)
 VALUES 
-    ('Admin Admin','1966-06-16', '4444444', '1 Admin Pl ADMIN NSW 2000', 'admin@uts.com','admin',true),
+    ('Harry Styles','1966-06-16', '4444444', '1 Admin Pl ADMIN NSW 2000', 'admin@uts.com','admin',true),
     ('John Smith','1997-11-01', '95959595', '12 John Pl JOHN NSW 2000', 'john.smith@uts.com','hello123',false),
     ('David Alen Jones','1998-05-17', '95950000', '12 Alen Pl ALEN NSW 2000', 'alen.david@example.com','demo123',false),
     ('Jim Lee','2007-01-01', '95000055', '12 Jim Pl JIM NSW 2000', 'jim.l@uts.com','jim123',false),
